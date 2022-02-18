@@ -1,15 +1,15 @@
-# ansible-avalanche-collection-examples
+# ansible-avalanche-getting-started
 
-Examples of how to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalanche-collection) Ansible collection to provision [Avalanche](https://docs.avax.network/) resources.
+How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalanche-collection) Ansible collection to provision [Avalanche](https://docs.avax.network/) resources.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [TL;DR](#tldr)
 - [Local test network](#local-test-network)
-  - [Bootstrapping the network](#bootstrapping-the-network)
-  - [Issuing API calls](#issuing-api-calls)
+  - [Bootstrapping](#bootstrapping)
+  - [API calls](#api-calls)
   - [Pre-funded account](#pre-funded-account)
-  - [Customizing the installation](#customizing-the-installation)
+  - [Customization](#customization)
 
 ## Requirements
 
@@ -61,7 +61,7 @@ curl -s -X POST --data '{
 
 Create a virtualized local Avalanche test network with 2 commands.
 
-### Bootstrapping the network
+### Bootstrapping
 
 We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/bootstrap_local_network.yml) playbook:
 
@@ -81,7 +81,7 @@ We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com
    ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/bootstrap_local_network.yml -i inventories/local
    ```
 
-### Issuing API calls
+### API calls
 
 The node `validator01-local` exposes AvalancheGo APIs on it's public IP: you can query any [Avalanche API](https://docs.avax.network/build/avalanchego-apis/) at `192.168.1.11:9650` from your terminal. For example, to check if the P-Chain is done bootstrapping:
 
@@ -106,7 +106,7 @@ A user with access to the default pre-funded account (see [Fund a Local Test Net
 - Password: `I_l1ve_@_Endor`
 - Private key: `PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN`
 
-### Customizing the installation
+### Customization
 
 Different aspects of the installation can be customized:
 
