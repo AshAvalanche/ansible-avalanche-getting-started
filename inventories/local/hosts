@@ -12,3 +12,6 @@ validator01
 
 [avalanche_nodes]
 validator0[1:5]
+
+[api_node]
+validator01
