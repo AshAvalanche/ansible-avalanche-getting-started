@@ -33,7 +33,7 @@ How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalan
 1. Clone this repository:
 
    ```sh
-   git clone https://github.com/Nuttymoon/ansible-avalanche-collection-examples
+   git clone https://github.com/Nuttymoon/ansible-avalanche-getting-started
    ```
 
 2. Install the `nuttymoon.avalanche` collection:
@@ -61,7 +61,7 @@ curl -s -X POST --data '{
   "id"     : 1,
   "method" : "info.isBootstrapped",
   "params": { "chain": "P" }
-}' -H 'content-type:application/json;' http://192.168.2.11:9650/ext/info
+}' -H 'content-type:application/json;' http://192.168.1.11:9650/ext/info
 ```
 
 Fuji/Mainnet nodes (replace `${MY_HOST_IP}` and `${MY_HOST_USER}`):
@@ -112,7 +112,7 @@ curl -s -X POST --data '{
   "params": {
     "chain": "P"
   }
-}' -H 'content-type:application/json;' http://192.168.2.11:9650/ext/info
+}' -H 'content-type:application/json;' http://192.168.1.11:9650/ext/info
 ```
 
 **Note:** The other nodes expose the APIs on there localhost address `127.0.0.1` so you would have to `vagrant ssh` into the VM to query them.
