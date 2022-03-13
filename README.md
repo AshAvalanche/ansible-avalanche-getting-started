@@ -18,6 +18,11 @@ How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalan
   - [Subnet whitelisting](#subnet-whitelisting)
 - [Avalanche transactions](#avalanche-transactions)
   - [Example notebook](#example-notebook)
+- [Subnet management](#subnet-management)
+  - [Prerequisites](#prerequisites)
+  - [Subnet creation](#subnet-creation)
+  - [Subnet whitelisting](#subnet-whitelisting-1)
+  - [Customization](#customization-2)
 
 ## Requirements
 
@@ -59,8 +64,7 @@ Local test network:
 vagrant up
 ansible-playbook nuttymoon.avalanche.bootstrap_local_network -i inventories/local
 curl -s -X POST --data '{
-  "jsonrpc": "2.0",
-  "id"     : 1,
+  "jsonrpc": "2.0", "id": 1,
   "method" : "info.isBootstrapped",
   "params": { "chain": "P" }
 }' -H 'content-type:application/json;' http://192.168.1.11:9650/ext/info
@@ -78,13 +82,26 @@ EOF
 ansible-playbook nuttymoon.avalanche.provision_nodes -i inventories/$NETWORK
 ```
 
+Subnet creation (on local test network). Using `jq` to parse API output:
+
+```sh
+# Prerequisite: create 2 addresses on P-Chain for pre-funded account
+data='{
+  "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
+  "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
+}'
+key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
+```
+
 ## Local test network
 
-Create a virtualized local Avalanche test network with 2 commands.
+Use `nuttymoon.avalanche.node` to create a virtualized local Avalanche test network.
 
 ### Bootstrapping
 
-We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/bootstrap_local_network.yml) playbook:
+We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/bootstrap_local_network.yml) playbook (that relies on the `node` role):
 
 1. Create the 5 virtual machines that will host the Avalanche nodes:
 
@@ -140,11 +157,11 @@ For a list of all available variables, see the [nuttymoon.avalanche.node role do
 
 ## Fuji/Mainnet nodes
 
-Provision Avalanche nodes with 1 command.
+Use `nuttymoon.avalanche.node` to provision Avalanche nodes.
 
 ### Provisioning
 
-We will use the [nuttymoon.avalanche.provision_nodes](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/provision_nodes.yml) playbook:
+We will use the [nuttymoon.avalanche.provision_nodes](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/provision_nodes.yml) playbook (that relies on the `node` role):
 
 1. Create the `hosts` file in the inventory with your host information (e.g. for `fuji`):
 
@@ -221,8 +238,11 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
 2. To run the notebook, we need to provide the vault password (`ewoq`):
 
    ```sh
+   # With Ansible >= 2.11
    ansible-playbook nuttymoon.avalanche.transfer_avax -i inventories/local --ask-vault-password
-   Vault password:
+
+   # With Ansible <= 2.10
+   ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/transfer_avax.yml -i inventories/local --ask-vault-password
    ```
 
 3. The notebook issues 2 transactions to transfer 1 AVAX from the X-Chain to the C-Chain and you can see the `tx` module output format:
@@ -250,3 +270,65 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
          username: VALUE_SPECIFIED_IN_NO_LOG_PARAMETER
      tx_id: 2vQi7Smp7jm39moowZNZMfCfismswerYVtB14iSHk4jfg6nPyA
    ```
+
+## Subnet management
+
+Use `nuttymoon.avalanche.subnet` to create a subnet.
+
+### Prerequisites
+
+For this example, we will use our locat test network and the [nuttymoon.avalanche.create_local_subnet](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/transfer_avax.yml) notebook that uses the pre-funded account to create the subnet. Therefore, before creating the subnet, we need to:
+
+1. (If not already done) Create the local test network, see [Local test network](#local-test-network)
+2. Create 2 addresses that will serve as control keys for the subnet (see [Create a subnet](https://docs.avax.network/build/tutorials/platform/subnets/create-a-subnet) for more information):
+
+   ```sh
+   data='{
+     "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
+     "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
+   }'
+   key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+   key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+   ```
+
+### Subnet creation
+
+We will use the 2 addresses created above as control keys for the subnet:
+
+```sh
+# With Ansible >= 2.11
+ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local \
+  --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
+
+# With Ansible >= 2.10
+ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/create_local_subnet.yml \
+  -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
+```
+
+### Subnet whitelisting
+
+The `nuttymoon.avalanche.subnet` role does not whitelist the subnet on validators. The list of whitelisted subnets is handled by the `nuttymoon.avalanche.node` role.
+
+At the end of the subnet creation, information about the new subnet is displayed:
+
+```yaml
+ok: [validator01] =>
+  msg: |-
+    The subnet has been created and the validators added.
+    Make sure to add the subnet ID to the whitelisted-subnets list of the validators.
+    Subnet ID = 2mt2C4vRbkrmAAurm7FE3y4xzan4CM3jJSKaPeCCuVq8EaphMR
+```
+
+To whitelist the subnet:
+
+1. Edit the `group_vars` file associated with the hosts to add the `avalanche_whitelisted_subnet` variable. In our case it is [avalanche_nodes.yml](./inventories/local/group_vars/avalanche_nodes.yml):
+   ```yaml
+   avalanche_whitelisted_subnets: 2mt2C4vRbkrmAAurm7FE3y4xzan4CM3jJSKaPeCCuVq8EaphMR
+   ```
+2. Run the `nuttymoon.avalanche.bootstrap_local_network` to apply the new configuration and restart the nodes
+
+### Customization
+
+To customize the subnet: edit the variables in `inventories/local/group_vars/subnet_control_node.yml`.
+
+For a list of all available variables, see the [nuttymoon.avalanche.subnet role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/subnet).
