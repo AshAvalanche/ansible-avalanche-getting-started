@@ -277,7 +277,7 @@ Use `nuttymoon.avalanche.subnet` to create a subnet.
 
 ### Prerequisites
 
-For this example, we will use our locat test network and the [nuttymoon.avalanche.create_local_subnet](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/transfer_avax.yml) notebook that uses the pre-funded account to create the subnet. Therefore, before creating the subnet, we need to:
+For this example, we will use our local test network and the [nuttymoon.avalanche.create_local_subnet](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_subnet.yml) notebook that uses the pre-funded account to create the subnet. Therefore, before creating the subnet, we need to:
 
 1. (If not already done) Create the local test network, see [Local test network](#local-test-network)
 2. Create 2 addresses that will serve as control keys for the subnet (see [Create a subnet](https://docs.avax.network/build/tutorials/platform/subnets/create-a-subnet) for more information):
