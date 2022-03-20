@@ -15,3 +15,11 @@ validator0[1:5]
 
 [api_node]
 validator01
+
+[subnet_control_node]
+validator01
+
+[subnet_validators]
+validator01
+validator02 avalanchego_http_host=127.0.0.1
+validator03 avalanchego_http_host=127.0.0.1

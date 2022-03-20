@@ -3,7 +3,7 @@
 ---
 avalanchego_version: 1.7.4
 avalanchego_network_id: fuji
-# AvalancheGo will generate new certs
+# AvalancheGo will generate new certs if needed
 avalanchego_use_existing_certs: no
 # Defaults parameters of the Avalanche network
 avalanchego_snow_sample_size: 20
