@@ -1,7 +1,7 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.7.4
+avalanchego_version: 1.7.5
 avalanchego_network_id: fuji
 # AvalancheGo will generate new certs if needed
 avalanchego_use_existing_certs: no
@@ -10,3 +10,6 @@ avalanchego_snow_sample_size: 20
 avalanchego_snow_quorum_size: 14
 # Whitelisting the SpacesVM subnet
 avalanche_whitelisted_subnets: Ai42MkKqk8yjXFCpoHXw7rdTWSHiKEMqh5h8gbxwjgkCUfkrk
+# Installing the SpacesVM
+avalanchego_vms_install:
+  - spacesvm=0.0.2

@@ -16,6 +16,7 @@ How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalan
   - [Customization](#customization-1)
   - [Node upgrade](#node-upgrade)
   - [Subnet whitelisting](#subnet-whitelisting)
+  - [VMs installation and upgrade](#vms-installation-and-upgrade)
 - [Avalanche transactions](#avalanche-transactions)
   - [Example notebook](#example-notebook)
 - [Subnet management](#subnet-management)
@@ -208,6 +209,18 @@ To whitelist a subnet on your node (so that it can start validating blocks):
 
 1. Add it to `avalanche_whitelisted_subnets` (comma-separated) in `group_vars/avalanche_nodes.yml`
 2. Run the `nuttymoon.avalanche.provision_nodes` playbook: AvalancheGo will be restarted after the configuration update.
+
+### VMs installation and upgrade
+
+To install or upgrade VMs on the nodes, update the variable `avalanchego_vms_install`:
+
+```yaml
+avalanchego_vms_install:
+  - timestampvm=1.2.2
+  - spacesvm=0.0.2
+```
+
+For the list of all VMs available see the [nuttymoon.avalanche.node role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/node/#available-vms-and-avalanchego-compatibility).
 
 ## Avalanche transactions
 
