@@ -24,6 +24,10 @@ How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalan
   - [Subnet creation](#subnet-creation)
   - [Subnet whitelisting](#subnet-whitelisting-1)
   - [Customization](#customization-2)
+- [Blockchains management](#blockchains-management)
+  - [Prerequisites](#prerequisites-1)
+  - [Blockchain creation](#blockchain-creation)
+  - [Customization](#customization-3)
 
 ## Requirements
 
@@ -68,7 +72,7 @@ curl -s -X POST --data '{
   "jsonrpc": "2.0", "id": 1,
   "method" : "info.isBootstrapped",
   "params": { "chain": "P" }
-}' -H 'content-type:application/json;' http://192.168.1.11:9650/ext/info
+}' -H 'content-type:application/json;' http://10.0.0.11:9650/ext/info
 ```
 
 Fuji/Mainnet nodes (replace `${MY_HOST_IP}` and `${MY_HOST_USER}`):
@@ -91,9 +95,16 @@ data='{
   "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
   "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
 }'
-key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
-key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
+key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
 ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
+```
+
+Blockchain creation (on local test network):
+
+```sh
+ansible-playbook nuttymoon.avalanche.create_local_blockchains -i inventories/local \
+  -e subnet_id=$MY_SUBNET_ID
 ```
 
 ## Local test network
@@ -122,7 +133,7 @@ We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com
 
 ### API calls
 
-The node `validator01-local` exposes AvalancheGo APIs on it's public IP: you can query any [Avalanche API](https://docs.avax.network/build/avalanchego-apis/) at `192.168.1.11:9650` from your terminal. For example, to check if the P-Chain is done bootstrapping:
+The node `validator01-local` exposes AvalancheGo APIs on it's public IP: you can query any [Avalanche API](https://docs.avax.network/build/avalanchego-apis/) at `10.0.0.11:9650` from your terminal. For example, to check if the P-Chain is done bootstrapping:
 
 ```sh
 curl -s -X POST --data '{
@@ -132,7 +143,7 @@ curl -s -X POST --data '{
   "params": {
     "chain": "P"
   }
-}' -H 'content-type:application/json;' http://192.168.1.11:9650/ext/info
+}' -H 'content-type:application/json;' http://10.0.0.11:9650/ext/info
 ```
 
 **Note:** The other nodes expose the APIs on there localhost address `127.0.0.1` so you would have to `vagrant ssh` into the VM to query them.
@@ -263,7 +274,7 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
    xchain_transac_res:
      blockchain: X
      changed: true
-     endpoint: http://192.168.1.11:9650/ext/bc/X
+     endpoint: http://10.0.0.11:9650/ext/bc/X
      failed: false
      num_retries: 0
      response:
@@ -300,8 +311,8 @@ For this example, we will use our local test network and the [nuttymoon.avalanch
      "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
      "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
    }'
-   key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
-   key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.1.11:9650/ext/bc/P | jq -r '.result.address')
+   key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
+   key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
    ```
 
 ### Subnet creation
@@ -345,3 +356,49 @@ To whitelist the subnet:
 To customize the subnet: edit the variables in `inventories/local/group_vars/subnet_control_node.yml`.
 
 For a list of all available variables, see the [nuttymoon.avalanche.subnet role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/subnet).
+
+## Blockchains management
+
+Use `nuttymoon.avalanche.blockchain` to create a blockchains.
+
+### Prerequisites
+
+For this example, we will use our local test network and the [nuttymoon.avalanche.create_local_blockchains](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) notebook that uses the pre-funded account to create blockchains in an existing subnet. Therefore, before creating the blockchain, we need to:
+
+1. (If not already done) Create the local test network, see [Local test network](#local-test-network)
+2. (If not already done) Create a subnet, see [Subnet management](#subnet-management). Note down the subnet ID.
+3. (If not already done) Restart the nodes with the subnet ID whitelisted. See [Subnet whitelisting](#subnet-whitelisting-1). Note down the subnet ID.
+
+### Blockchain creation
+
+The playboook [nuttymoon.avalanche.create_local_blockchains](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) will create the blockchains listed in the `create_blockchains` variable in `inventories/local/group_vars/subnet_control_node.yml`. By default, 2 blockchains are created:
+
+- `Timestamp Chain` using the `timestampvm` VM
+- `Subnet EVM` using the `subnetevm` VM
+
+```sh
+# With Ansible >= 2.11
+ansible-playbook nuttymoon.avalanche.create_local_blockchains -i inventories/local \
+  -e subnet_id=$MY_SUBNET_ID
+
+# With Ansible >= 2.10
+ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/create_local_blockchains.yml \
+  -i inventories/local -e subnet_id=$MY_SUBNET_ID
+```
+
+The blockchain information are displayed at the end of its creation:
+
+```yaml
+ok: [validator01] =>
+  blockchain_info:
+    id: 2qySivgXbE13Guu3icudmMj5HTnDiXnJHznLd22JZSWCCA3tbL
+    name: Subnet EVM
+    subnetID: 21ieRfp2vi7kCQ9QHxhyRxyR7FXVy9s9pUAewoV8E4DxYSydZp
+    vmID: spePNvBxaWSYL2tB5e2xMmMNBQkXMN8z2XEbz1ML2Aahatwoc
+```
+
+### Customization
+
+To customize the blockchains created: edit the variables in `inventories/local/group_vars/subnet_control_node.yml`.
+
+For a list of all available variables, see the [nuttymoon.avalanche.blockchain role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/blockchain).
