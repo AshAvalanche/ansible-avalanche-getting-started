@@ -72,7 +72,7 @@ curl -s -X POST --data '{
   "jsonrpc": "2.0", "id": 1,
   "method" : "info.isBootstrapped",
   "params": { "chain": "P" }
-}' -H 'content-type:application/json;' http://10.0.0.11:9650/ext/info
+}' -H 'content-type:application/json;' http://192.168.60.11:9650/ext/info
 ```
 
 Fuji/Mainnet nodes (replace `${MY_HOST_IP}` and `${MY_HOST_USER}`):
@@ -95,8 +95,8 @@ data='{
   "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
   "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
 }'
-key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
-key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
+key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
+key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
 ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
 ```
 
@@ -133,7 +133,7 @@ We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com
 
 ### API calls
 
-The node `validator01-local` exposes AvalancheGo APIs on it's public IP: you can query any [Avalanche API](https://docs.avax.network/build/avalanchego-apis/) at `10.0.0.11:9650` from your terminal. For example, to check if the P-Chain is done bootstrapping:
+The node `validator01-local` exposes AvalancheGo APIs on it's public IP: you can query any [Avalanche API](https://docs.avax.network/build/avalanchego-apis/) at `192.168.60.11:9650` from your terminal. For example, to check if the P-Chain is done bootstrapping:
 
 ```sh
 curl -s -X POST --data '{
@@ -143,7 +143,7 @@ curl -s -X POST --data '{
   "params": {
     "chain": "P"
   }
-}' -H 'content-type:application/json;' http://10.0.0.11:9650/ext/info
+}' -H 'content-type:application/json;' http://192.168.60.11:9650/ext/info
 ```
 
 **Note:** The other nodes expose the APIs on there localhost address `127.0.0.1` so you would have to `vagrant ssh` into the VM to query them.
@@ -274,7 +274,7 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
    xchain_transac_res:
      blockchain: X
      changed: true
-     endpoint: http://10.0.0.11:9650/ext/bc/X
+     endpoint: http://192.168.60.11:9650/ext/bc/X
      failed: false
      num_retries: 0
      response:
@@ -311,8 +311,8 @@ For this example, we will use our local test network and the [nuttymoon.avalanch
      "jsonrpc": "2.0", "id": 1, "method" : "platform.createAddress",
      "params" : {"username":"ewoq", "password": "I_l1ve_@_Endor"}
    }'
-   key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
-   key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://10.0.0.11:9650/ext/bc/P | jq -r '.result.address')
+   key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
+   key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
    ```
 
 ### Subnet creation

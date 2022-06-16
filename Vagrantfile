@@ -5,11 +5,11 @@
 # vi: set ft=ruby :
 
 machines = {
-  validator01: { ip: "10.0.0.11", memory: 1024, cpus: 1 },
-  validator02: { ip: "10.0.0.12", memory: 1024, cpus: 1 },
-  validator03: { ip: "10.0.0.13", memory: 1024, cpus: 1 },
-  validator04: { ip: "10.0.0.14", memory: 1024, cpus: 1 },
-  validator05: { ip: "10.0.0.15", memory: 1024, cpus: 1 },
+  validator01: { ip: "192.168.60.11", memory: 1024, cpus: 1 },
+  validator02: { ip: "192.168.60.12", memory: 1024, cpus: 1 },
+  validator03: { ip: "192.168.60.13", memory: 1024, cpus: 1 },
+  validator04: { ip: "192.168.60.14", memory: 1024, cpus: 1 },
+  validator05: { ip: "192.168.60.15", memory: 1024, cpus: 1 },
 }
 
 Vagrant.configure("2") do |config|

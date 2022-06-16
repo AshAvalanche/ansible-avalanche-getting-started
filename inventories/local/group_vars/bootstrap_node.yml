@@ -1,4 +1,4 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_http_host: 10.0.0.11
+avalanchego_http_host: 192.168.60.11

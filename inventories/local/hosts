@@ -1,11 +1,11 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 
-validator01 ansible_host=10.0.0.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator01-local/virtualbox/private_key
-validator02 ansible_host=10.0.0.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator02-local/virtualbox/private_key
-validator03 ansible_host=10.0.0.13 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator03-local/virtualbox/private_key
-validator04 ansible_host=10.0.0.14 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator04-local/virtualbox/private_key
-validator05 ansible_host=10.0.0.15 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator05-local/virtualbox/private_key
+validator01 ansible_host=192.168.60.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator01-local/virtualbox/private_key
+validator02 ansible_host=192.168.60.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator02-local/virtualbox/private_key
+validator03 ansible_host=192.168.60.13 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator03-local/virtualbox/private_key
+validator04 ansible_host=192.168.60.14 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator04-local/virtualbox/private_key
+validator05 ansible_host=192.168.60.15 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator05-local/virtualbox/private_key
 
 [bootstrap_node]
 validator01
