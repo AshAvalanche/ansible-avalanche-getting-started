@@ -10,3 +10,4 @@ avalanchego_node_json:
   # Defaults parameters of Snow consensus
   snow-sample-size: 20
   snow-quorum-size: 14
+  snow-mixed-query-num-push-vdr: 10
