@@ -1,6 +1,6 @@
 # ansible-avalanche-getting-started
 
-How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalanche-collection) Ansible collection to provision [Avalanche](https://docs.avax.network/) resources.
+How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche-collection) Ansible collection to provision [Avalanche](https://docs.avax.network/) resources.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
@@ -45,20 +45,20 @@ How to use the [nuttymoon.avalanche](https://github.com/Nuttymoon/ansible-avalan
 1. Clone this repository:
 
    ```sh
-   git clone https://github.com/Nuttymoon/ansible-avalanche-getting-started
+   git clone https://github.com/AshAvalanche/ansible-avalanche-getting-started
    ```
 
-2. Install the `nuttymoon.avalanche` collection:
+2. Install the `ash.avalanche` collection:
 
    ```sh
-   cd ansible-avalanche-collection-examples
+   cd ansible-avalanche-collection-getting-started
 
    # With Ansible >= 2.10
-   ansible-galaxy collection install git+https://github.com/Nuttymoon/ansible-avalanche-collection.git
+   ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git
 
    # With Ansible 2.9
-   mkdir -p ansible_collections/nuttymoon
-   git clone https://github.com/Nuttymoon/ansible-avalanche-collection.git ansible_collections/nuttymoon/avalanche
+   mkdir -p ansible_collections/ash
+   git clone https://github.com/AshAvalanche/ansible-avalanche-collection.git ansible_collections/ash/avalanche
    ```
 
 ## TL;DR
@@ -67,7 +67,7 @@ Local test network:
 
 ```sh
 vagrant up
-ansible-playbook nuttymoon.avalanche.bootstrap_local_network -i inventories/local
+ansible-playbook ash.avalanche.bootstrap_local_network -i inventories/local
 curl -s -X POST --data '{
   "jsonrpc": "2.0", "id": 1,
   "method" : "info.isBootstrapped",
@@ -84,7 +84,7 @@ validator01 ansible_host=${MY_HOST_IP} ansible_user=${MY_HOST_USER}
 [avalanche_nodes]
 validator01
 EOF
-ansible-playbook nuttymoon.avalanche.provision_nodes -i inventories/$NETWORK
+ansible-playbook ash.avalanche.provision_nodes -i inventories/$NETWORK
 ```
 
 Subnet creation (on local test network). Using `jq` to parse API output:
@@ -97,23 +97,23 @@ data='{
 }'
 key_1=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
 key_2=$(curl -s -X POST -H 'content-type:application/json;' --data "$data" http://192.168.60.11:9650/ext/bc/P | jq -r '.result.address')
-ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
+ansible-playbook ash.avalanche.create_local_subnet -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
 ```
 
 Blockchain creation (on local test network):
 
 ```sh
-ansible-playbook nuttymoon.avalanche.create_local_blockchains -i inventories/local \
+ansible-playbook ash.avalanche.create_local_blockchains -i inventories/local \
   -e subnet_id=$MY_SUBNET_ID
 ```
 
 ## Local test network
 
-Use `nuttymoon.avalanche.node` to create a virtualized local Avalanche test network.
+Use `ash.avalanche.node` to create a virtualized local Avalanche test network.
 
 ### Bootstrapping
 
-We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/bootstrap_local_network.yml) playbook (that relies on the `node` role):
+We will use the [ash.avalanche.bootstrap_local_network](https://github.com/AshAvalanche/ansible-avalanche-collection/blob/main/playbooks/bootstrap_local_network.yml) playbook (that relies on the `node` role):
 
 1. Create the 5 virtual machines that will host the Avalanche nodes:
 
@@ -125,10 +125,10 @@ We will use the [nuttymoon.avalanche.bootstrap_local_network](https://github.com
 
    ```sh
    # With Ansible >= 2.11
-   ansible-playbook nuttymoon.avalanche.bootstrap_local_network -i inventories/local
+   ansible-playbook ash.avalanche.bootstrap_local_network -i inventories/local
 
    # With Ansible <= 2.10
-   ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/bootstrap_local_network.yml -i inventories/local
+   ansible-playbook ansible_collections/ash/avalanche/playbooks/bootstrap_local_network.yml -i inventories/local
    ```
 
 ### API calls
@@ -165,15 +165,15 @@ Different aspects of the installation can be customized:
   - [avalanche_nodes.yml](./inventories/local/group_vars/avalanche_nodes.yml) is applied to all nodes
   - [bootstrap_node.yml](./inventories/local/group_vars/bootstrap_node.yml) is only applied to the bootstrap node
 
-For a list of all available variables, see the [nuttymoon.avalanche.node role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/node).
+For a list of all available variables, see the [ash.avalanche.node role documentation](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/roles/node).
 
 ## Fuji/Mainnet nodes
 
-Use `nuttymoon.avalanche.node` to provision Avalanche nodes.
+Use `ash.avalanche.node` to provision Avalanche nodes.
 
 ### Provisioning
 
-We will use the [nuttymoon.avalanche.provision_nodes](https://github.com/Nuttymoon/ansible-avalanche-collection/blob/main/playbooks/provision_nodes.yml) playbook (that relies on the `node` role):
+We will use the [ash.avalanche.provision_nodes](https://github.com/AshAvalanche/ansible-avalanche-collection/blob/main/playbooks/provision_nodes.yml) playbook (that relies on the `node` role):
 
 1. Create the `hosts` file in the inventory with your host information (e.g. for `fuji`):
 
@@ -189,10 +189,10 @@ We will use the [nuttymoon.avalanche.provision_nodes](https://github.com/Nuttymo
 
    ```sh
    # With Ansible >= 2.11
-   ansible-playbook nuttymoon.avalanche.provision_nodes -i inventories/fuji
+   ansible-playbook ash.avalanche.provision_nodes -i inventories/fuji
 
    # With Ansible <= 2.10
-   ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/provision_nodes.yml -i inventories/fuji
+   ansible-playbook ansible_collections/ash/avalanche/playbooks/provision_nodes.yml -i inventories/fuji
    ```
 
 ### API calls
@@ -203,14 +203,14 @@ For security reasons, the nodes do not expose AvalancheGo APIs on their public I
 
 To customize AvalancheGo installation: edit the variables in `inventories/NETWORK/group_vars/avalanche_nodes.yml`.
 
-For a list of all available variables, see the [nuttymoon.avalanche.node role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/node).
+For a list of all available variables, see the [ash.avalanche.node role documentation](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/roles/node).
 
 ### Node upgrade
 
 To upgrade your node to a newer version of AvalancheGo, you just have to:
 
 1. Update the `avalanchego_version` variable in `group_vars/avalanche_nodes.yml`
-2. Run the `nuttymoon.avalanche.provision_nodes` playbook: AvalancheGo will be restarted after the new version installation.
+2. Run the `ash.avalanche.provision_nodes` playbook: AvalancheGo will be restarted after the new version installation.
 
 **Note:** Because Ansible deployments are idempotent, the node is only restarted when needed. It doesn't hurt to run the playbook to make sure that your node is up to date with your configuration!
 
@@ -219,7 +219,7 @@ To upgrade your node to a newer version of AvalancheGo, you just have to:
 To whitelist a subnet on your node (so that it can start validating blocks):
 
 1. Add it to `avalanche_whitelisted_subnets` (comma-separated) in `group_vars/avalanche_nodes.yml`
-2. Run the `nuttymoon.avalanche.provision_nodes` playbook: AvalancheGo will be restarted after the configuration update.
+2. Run the `ash.avalanche.provision_nodes` playbook: AvalancheGo will be restarted after the configuration update.
 
 ### VMs installation and upgrade
 
@@ -231,15 +231,15 @@ avalanchego_vms_install:
   - spacesvm=0.0.2
 ```
 
-For the list of all VMs available see the [nuttymoon.avalanche.node role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/node/#available-vms-and-avalanchego-compatibility).
+For the list of all VMs available see the [ash.avalanche.node role documentation](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/roles/node/#available-vms-and-avalanchego-compatibility).
 
 ## Avalanche transactions
 
-Use the `nuttymoon.avalanche.tx` module to submit transactions to an Avalanche network.
+Use the `ash.avalanche.tx` module to submit transactions to an Avalanche network.
 
 ### Example notebook
 
-The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/transfer_avax.yml) is provided as an example. We will call this notebook and follow best practices to secure Avalanche keystore credentials using [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html):
+The notebook [ash.avalanche.transfer_avax](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/playbooks/transfer_avax.yml) is provided as an example. We will call this notebook and follow best practices to secure Avalanche keystore credentials using [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html):
 
 1. In [inventories/local/group_vars/api_node.yml](inventories/local/group_vars/api_node.yml), the keystore crendentials have been encrypted using Ansible vault:
    ```yaml
@@ -263,10 +263,10 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
 
    ```sh
    # With Ansible >= 2.11
-   ansible-playbook nuttymoon.avalanche.transfer_avax -i inventories/local --ask-vault-password
+   ansible-playbook ash.avalanche.transfer_avax -i inventories/local --ask-vault-password
 
    # With Ansible <= 2.10
-   ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/transfer_avax.yml -i inventories/local --ask-vault-password
+   ansible-playbook ansible_collections/ash/avalanche/playbooks/transfer_avax.yml -i inventories/local --ask-vault-password
    ```
 
 3. The notebook issues 2 transactions to transfer 1 AVAX from the X-Chain to the C-Chain and you can see the `tx` module output format:
@@ -297,11 +297,11 @@ The notebook [nuttymoon.avalanche.transfer_avax](https://github.com/Nuttymoon/an
 
 ## Subnet management
 
-Use `nuttymoon.avalanche.subnet` to create a subnet.
+Use `ash.avalanche.subnet` to create a subnet.
 
 ### Prerequisites
 
-For this example, we will use our local test network and the [nuttymoon.avalanche.create_local_subnet](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_subnet.yml) notebook that uses the pre-funded account to create the subnet. Therefore, before creating the subnet, we need to:
+For this example, we will use our local test network and the [ash.avalanche.create_local_subnet](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/playbooks/create_local_subnet.yml) notebook that uses the pre-funded account to create the subnet. Therefore, before creating the subnet, we need to:
 
 1. (If not already done) Create the local test network, see [Local test network](#local-test-network)
 2. Create 2 addresses that will serve as control keys for the subnet (see [Create a subnet](https://docs.avax.network/build/tutorials/platform/subnets/create-a-subnet) for more information):
@@ -321,17 +321,17 @@ We will use the 2 addresses created above as control keys for the subnet:
 
 ```sh
 # With Ansible >= 2.11
-ansible-playbook nuttymoon.avalanche.create_local_subnet -i inventories/local \
+ansible-playbook ash.avalanche.create_local_subnet -i inventories/local \
   --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
 
 # With Ansible >= 2.10
-ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/create_local_subnet.yml \
+ansible-playbook ansible_collections/ash/avalanche/playbooks/create_local_subnet.yml \
   -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
 ```
 
 ### Subnet whitelisting
 
-The `nuttymoon.avalanche.subnet` role does not whitelist the subnet on validators. The list of whitelisted subnets is handled by the `nuttymoon.avalanche.node` role.
+The `ash.avalanche.subnet` role does not whitelist the subnet on validators. The list of whitelisted subnets is handled by the `ash.avalanche.node` role.
 
 At the end of the subnet creation, information about the new subnet is displayed:
 
@@ -349,21 +349,21 @@ To whitelist the subnet:
    ```yaml
    avalanche_whitelisted_subnets: 2mt2C4vRbkrmAAurm7FE3y4xzan4CM3jJSKaPeCCuVq8EaphMR
    ```
-2. Run the `nuttymoon.avalanche.bootstrap_local_network` to apply the new configuration and restart the nodes
+2. Run the `ash.avalanche.bootstrap_local_network` to apply the new configuration and restart the nodes
 
 ### Customization
 
 To customize the subnet: edit the variables in `inventories/local/group_vars/subnet_control_node.yml`.
 
-For a list of all available variables, see the [nuttymoon.avalanche.subnet role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/subnet).
+For a list of all available variables, see the [ash.avalanche.subnet role documentation](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/roles/subnet).
 
 ## Blockchains management
 
-Use `nuttymoon.avalanche.blockchain` to create a blockchains.
+Use `ash.avalanche.blockchain` to create a blockchains.
 
 ### Prerequisites
 
-For this example, we will use our local test network and the [nuttymoon.avalanche.create_local_blockchains](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) notebook that uses the pre-funded account to create blockchains in an existing subnet. Therefore, before creating the blockchain, we need to:
+For this example, we will use our local test network and the [ash.avalanche.create_local_blockchains](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) notebook that uses the pre-funded account to create blockchains in an existing subnet. Therefore, before creating the blockchain, we need to:
 
 1. (If not already done) Create the local test network, see [Local test network](#local-test-network)
 2. (If not already done) Create a subnet, see [Subnet management](#subnet-management). Note down the subnet ID.
@@ -371,18 +371,18 @@ For this example, we will use our local test network and the [nuttymoon.avalanch
 
 ### Blockchain creation
 
-The playboook [nuttymoon.avalanche.create_local_blockchains](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) will create the blockchains listed in the `create_blockchains` variable in `inventories/local/group_vars/subnet_control_node.yml`. By default, 2 blockchains are created:
+The playboook [ash.avalanche.create_local_blockchains](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/playbooks/create_local_blockchains.yml) will create the blockchains listed in the `create_blockchains` variable in `inventories/local/group_vars/subnet_control_node.yml`. By default, 2 blockchains are created:
 
 - `Timestamp Chain` using the `timestampvm` VM
 - `Subnet EVM` using the `subnetevm` VM
 
 ```sh
 # With Ansible >= 2.11
-ansible-playbook nuttymoon.avalanche.create_local_blockchains -i inventories/local \
+ansible-playbook ash.avalanche.create_local_blockchains -i inventories/local \
   -e subnet_id=$MY_SUBNET_ID
 
 # With Ansible >= 2.10
-ansible-playbook ansible_collections/nuttymoon/avalanche/playbooks/create_local_blockchains.yml \
+ansible-playbook ansible_collections/ash/avalanche/playbooks/create_local_blockchains.yml \
   -i inventories/local -e subnet_id=$MY_SUBNET_ID
 ```
 
@@ -401,4 +401,4 @@ ok: [validator01] =>
 
 To customize the blockchains created: edit the variables in `inventories/local/group_vars/subnet_control_node.yml`.
 
-For a list of all available variables, see the [nuttymoon.avalanche.blockchain role documentation](https://github.com/Nuttymoon/ansible-avalanche-collection/tree/main/roles/blockchain).
+For a list of all available variables, see the [ash.avalanche.blockchain role documentation](https://github.com/AshAvalanche/ansible-avalanche-collection/tree/main/roles/blockchain).
