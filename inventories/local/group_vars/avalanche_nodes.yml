@@ -1,10 +1,9 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.7.5
+avalanchego_version: 1.9.0
 avalanchego_local_certs_dir: "{{ inventory_dir }}/../../files/certs"
 
 avalanchego_vms_install:
-  - timestampvm=1.2.2
-  - subnetevm=0.1.2
-  - spacesvm=0.0.2
+  - subnetevm=0.4.0
+  - spacesvm=0.0.9
