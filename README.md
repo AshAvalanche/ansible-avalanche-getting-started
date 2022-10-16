@@ -54,11 +54,11 @@ How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche
    cd ansible-avalanche-collection-getting-started
 
    # With Ansible >= 2.10
-   ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git
+   ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git,v0.3.0
 
    # With Ansible 2.9
    mkdir -p ansible_collections/ash
-   git clone https://github.com/AshAvalanche/ansible-avalanche-collection.git ansible_collections/ash/avalanche
+   git clone --branch v0.3.0 https://github.com/AshAvalanche/ansible-avalanche-collection.git ansible_collections/ash/avalanche
    ```
 
 ## TL;DR

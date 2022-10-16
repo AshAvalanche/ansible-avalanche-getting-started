@@ -7,13 +7,6 @@ subnet_control_keys_threshold: 2
 subnet_validators_weight: 1
 
 create_blockchains:
-  - vm: timestampvm
-    name: Timestamp Chain
-    aliases:
-      - timestamp
-    genesis_params:
-      data: Hello world
-
   - vm: subnetevm
     name: Subnet EVM
     aliases:
