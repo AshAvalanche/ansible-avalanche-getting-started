@@ -2,6 +2,7 @@
 # See the file LICENSE for licensing terms.
 ---
 avalanchego_version: 1.9.0
+avalanchego_network_id: local
 avalanchego_local_certs_dir: "{{ inventory_dir }}/../../files/certs"
 
 avalanchego_vms_install:
