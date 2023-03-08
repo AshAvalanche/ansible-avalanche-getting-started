@@ -31,7 +31,7 @@ How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche
 
 ## Requirements
 
-- Ansible >= 2.9 (see [Installing Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html))
+- Python >=3.9 with `venv` module installed
 - For the local test network:
   - 6+ GB of free RAM
   - Vagrant (see [Installing Vagrant](https://www.vagrantup.com/docs/installation))
@@ -46,19 +46,20 @@ How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche
 
    ```sh
    git clone https://github.com/AshAvalanche/ansible-avalanche-getting-started
+   cd ansible-avalanche-collection-getting-started
    ```
 
-2. Install the `ash.avalanche` collection:
+2. Setup and activate Python venv:
 
    ```sh
-   cd ansible-avalanche-collection-getting-started
+   bin/setup.sh
+   source venv/bin/activate
+   ```
 
-   # With Ansible >= 2.10
+3. Install the `ash.avalanche` collection:
+
+   ```sh
    ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git,v0.3.0
-
-   # With Ansible 2.9
-   mkdir -p ansible_collections/ash
-   git clone --branch v0.3.0 https://github.com/AshAvalanche/ansible-avalanche-collection.git ansible_collections/ash/avalanche
    ```
 
 ## TL;DR
@@ -124,11 +125,7 @@ We will use the [ash.avalanche.bootstrap_local_network](https://github.com/AshAv
 2. Bootstrap the Avalanche nodes:
 
    ```sh
-   # With Ansible >= 2.11
    ansible-playbook ash.avalanche.bootstrap_local_network -i inventories/local
-
-   # With Ansible <= 2.10
-   ansible-playbook ansible_collections/ash/avalanche/playbooks/bootstrap_local_network.yml -i inventories/local
    ```
 
 ### API calls
@@ -188,11 +185,7 @@ We will use the [ash.avalanche.provision_nodes](https://github.com/AshAvalanche/
 2. Provision the Avalanche nodes (e.g. for `fuji`):
 
    ```sh
-   # With Ansible >= 2.11
    ansible-playbook ash.avalanche.provision_nodes -i inventories/fuji
-
-   # With Ansible <= 2.10
-   ansible-playbook ansible_collections/ash/avalanche/playbooks/provision_nodes.yml -i inventories/fuji
    ```
 
 ### API calls
@@ -262,11 +255,7 @@ The notebook [ash.avalanche.transfer_avax](https://github.com/AshAvalanche/ansib
 2. To run the notebook, we need to provide the vault password (`ewoq`):
 
    ```sh
-   # With Ansible >= 2.11
    ansible-playbook ash.avalanche.transfer_avax -i inventories/local --ask-vault-password
-
-   # With Ansible <= 2.10
-   ansible-playbook ansible_collections/ash/avalanche/playbooks/transfer_avax.yml -i inventories/local --ask-vault-password
    ```
 
 3. The notebook issues 2 transactions to transfer 1 AVAX from the X-Chain to the C-Chain and you can see the `tx` module output format:
@@ -320,13 +309,8 @@ For this example, we will use our local test network and the [ash.avalanche.crea
 We will use the 2 addresses created above as control keys for the subnet:
 
 ```sh
-# With Ansible >= 2.11
 ansible-playbook ash.avalanche.create_local_subnet -i inventories/local \
   --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
-
-# With Ansible >= 2.10
-ansible-playbook ansible_collections/ash/avalanche/playbooks/create_local_subnet.yml \
-  -i inventories/local --extra-vars "{\"subnet_control_keys\": [\"$key_1\",\"$key_2\"]}"
 ```
 
 ### Subnet whitelisting
@@ -377,13 +361,8 @@ The playboook [ash.avalanche.create_local_blockchains](https://github.com/AshAva
 - `Subnet EVM` using the `subnetevm` VM
 
 ```sh
-# With Ansible >= 2.11
 ansible-playbook ash.avalanche.create_local_blockchains -i inventories/local \
   -e subnet_id=$MY_SUBNET_ID
-
-# With Ansible >= 2.10
-ansible-playbook ansible_collections/ash/avalanche/playbooks/create_local_blockchains.yml \
-  -i inventories/local -e subnet_id=$MY_SUBNET_ID
 ```
 
 The blockchain information are displayed at the end of its creation:
