@@ -2,4 +2,4 @@ ansible_collections
 .vagrant
 inventories/fuji/hosts
 inventories/mainnet/hosts
-venv
+.venv

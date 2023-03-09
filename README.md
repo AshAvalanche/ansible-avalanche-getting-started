@@ -53,7 +53,7 @@ How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche
 
    ```sh
    bin/setup.sh
-   source venv/bin/activate
+   source .venv/bin/activate
    ```
 
 3. Install the `ash.avalanche` collection:

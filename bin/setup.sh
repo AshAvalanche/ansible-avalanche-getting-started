@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-readonly AVAILABLE_FEATURES=(extras prerequisites vagrant server observability)
 readonly PYTHON_BIN=${PYTHON_BIN:-python3}
-readonly PYTHON_VENV=${PYTHON_VENV:-venv}
+readonly PYTHON_VENV=${PYTHON_VENV:-.venv}
 
 if [[ ! -d "$PYTHON_VENV" ]]; then
 echo "Create python venv with '${PYTHON_BIN}' to '${PYTHON_VENV}' and update pip to latest version"
