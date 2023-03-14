@@ -1,14 +1,13 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.9.0
+avalanchego_version: 1.9.6
 avalanchego_network_id: local
 avalanchego_use_existing_certs: yes
 avalanchego_local_certs_dir: "{{ inventory_dir }}/../../files/certs"
 
 avalanchego_vms_install:
-  - subnetevm=0.4.0
-  - spacesvm=0.0.9
+  - subnetevm=0.4.8
 
 avalanchego_node_json:
   # Adapt Snow consensus parameters to a 5 node network
