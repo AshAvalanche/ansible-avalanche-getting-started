@@ -13,7 +13,7 @@ machines = {
 }
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "ubuntu/jammy64"
 
   # Define VMs
   machines.each_with_index do |(name, props), i|
