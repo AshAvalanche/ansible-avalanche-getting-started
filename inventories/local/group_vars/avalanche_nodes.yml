@@ -6,8 +6,7 @@ avalanchego_network_id: local
 avalanchego_use_existing_certs: yes
 avalanchego_local_certs_dir: "{{ inventory_dir }}/../../files/certs"
 
-avalanchego_vms_install:
-  - subnetevm=0.4.8
+avalanchego_vms_install: []
 
 avalanchego_node_json:
   # Adapt Snow consensus parameters to a 5 node network

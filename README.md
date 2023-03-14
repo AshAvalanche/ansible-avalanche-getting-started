@@ -37,7 +37,7 @@ How to use the [ash.avalanche](https://github.com/AshAvalanche/ansible-avalanche
 3. Install the `ash.avalanche` collection:
 
    ```sh
-   ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git,v0.4.0
+   ansible-galaxy collection install git+https://github.com/AshAvalanche/ansible-avalanche-collection.git
    ```
 
 ## TL;DR
