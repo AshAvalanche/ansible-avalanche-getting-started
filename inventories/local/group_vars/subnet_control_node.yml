@@ -7,10 +7,10 @@ subnet_control_keys_threshold: 2
 subnet_validators_weight: 1
 
 create_blockchains:
-  - vm: subnetevm
+  - vm: subnet-evm
     name: Subnet EVM
     aliases:
-      - subnetevm
+      - subnet-evm
     genesis_params:
       genesisData:
         config:
