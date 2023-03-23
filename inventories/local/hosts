@@ -1,17 +1,23 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 
-validator01 ansible_host=192.168.60.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator01-local/virtualbox/private_key
-validator02 ansible_host=192.168.60.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator02-local/virtualbox/private_key
-validator03 ansible_host=192.168.60.13 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator03-local/virtualbox/private_key
-validator04 ansible_host=192.168.60.14 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator04-local/virtualbox/private_key
-validator05 ansible_host=192.168.60.15 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator05-local/virtualbox/private_key
-
-[bootstrap_node]
-validator01
+validator01 ansible_host=192.168.60.11 avalanchego_http_host=192.168.60.11 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator01-local/virtualbox/private_key
+validator02 ansible_host=192.168.60.12 avalanchego_http_host=192.168.60.12 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator02-local/virtualbox/private_key
+validator03 ansible_host=192.168.60.13 avalanchego_http_host=192.168.60.13 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator03-local/virtualbox/private_key
+validator04 ansible_host=192.168.60.14 avalanchego_http_host=192.168.60.14 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator04-local/virtualbox/private_key
+validator05 ansible_host=192.168.60.15 avalanchego_http_host=192.168.60.15 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator05-local/virtualbox/private_key
 
 [avalanche_nodes]
 validator0[1:5]
+
+[avalanche_nodes:children]
+bootstrap_node
+subnet_control_node
+subnet_validators
+api_node
+
+[bootstrap_node]
+validator01
 
 [api_node]
 validator01
@@ -21,5 +27,5 @@ validator01
 
 [subnet_validators]
 validator01
-validator02 avalanchego_http_host=127.0.0.1
-validator03 avalanchego_http_host=127.0.0.1
+validator02
+validator03
