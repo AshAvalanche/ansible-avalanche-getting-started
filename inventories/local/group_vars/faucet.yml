@@ -1,4 +1,4 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2022-2023, E36 Knots
 ---
-avalanche_faucet_config: []
+avalanche_faucet_chains: {}
