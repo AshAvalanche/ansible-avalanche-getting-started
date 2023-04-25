@@ -32,3 +32,6 @@ validator03
 
 [faucet]
 validator01
+
+[blockscout]
+validator01
