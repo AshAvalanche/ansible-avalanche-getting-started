@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) 2022-2023, E36 Knots
+---
+grafana_security:
+  admin_user: admin
+  admin_password: admin123
+grafana_datasources:
+  - name: Prometheus
+    type: prometheus
+    url: "http://192.168.60.19:9090"
+grafana_dashboards_dir: "{{ playbook_dir }}/../files/dashboards"

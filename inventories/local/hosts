@@ -36,3 +36,9 @@ frontend
 
 [blockscout]
 frontend
+
+[prometheus]
+frontend
+
+[grafana]
+frontend
