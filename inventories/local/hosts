@@ -6,6 +6,7 @@ validator02 ansible_host=192.168.60.12 avalanchego_http_host=192.168.60.12 ansib
 validator03 ansible_host=192.168.60.13 avalanchego_http_host=192.168.60.13 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator03-local/virtualbox/private_key
 validator04 ansible_host=192.168.60.14 avalanchego_http_host=192.168.60.14 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator04-local/virtualbox/private_key
 validator05 ansible_host=192.168.60.15 avalanchego_http_host=192.168.60.15 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/validator05-local/virtualbox/private_key
+frontend ansible_host=192.168.60.19 ansible_user=vagrant ansible_ssh_private_key_file=./.vagrant/machines/frontend-local/virtualbox/private_key
 
 [avalanche_nodes]
 validator0[1:5]
@@ -31,7 +32,7 @@ validator02
 validator03
 
 [faucet]
-validator01
+frontend
 
 [blockscout]
-validator01
+frontend

@@ -10,6 +10,7 @@ machines = {
   validator03: { ip: "192.168.60.13", memory: 1024, cpus: 1 },
   validator04: { ip: "192.168.60.14", memory: 1024, cpus: 1 },
   validator05: { ip: "192.168.60.15", memory: 1024, cpus: 1 },
+  frontend: { ip: "192.168.60.19", memory: 2048, cpus: 2 },
 }
 
 Vagrant.configure("2") do |config|
