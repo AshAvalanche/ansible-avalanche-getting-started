@@ -7,5 +7,5 @@ grafana_security:
 grafana_datasources:
   - name: Prometheus
     type: prometheus
-    url: "http://192.168.60.19:9090"
+    url: http://192.168.60.19:9090
 grafana_dashboards_dir: "{{ playbook_dir }}/../files/dashboards"
