@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) 2022-2023, E36 Knots
+---
+prometheus_scrape_configs:
+  - job_name: avalanchego
+    metrics_path: /ext/metrics
+    static_configs:
+      - targets:
+          - 192.168.60.11:9650
+          - 192.168.60.12:9650
+          - 192.168.60.13:9650
+          - 192.168.60.14:9650
+          - 192.168.60.15:9650
+  - job_name: avalanchego-machine
+    static_configs:
+      - targets:
+          - 192.168.60.11:9100
+          - 192.168.60.12:9100
+          - 192.168.60.13:9100
+          - 192.168.60.14:9100
+          - 192.168.60.15:9100
+        labels:
+          alias: machine
