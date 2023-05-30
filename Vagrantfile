@@ -19,7 +19,8 @@ Vagrant.configure("2") do |config|
   # Define VMs
   machines.each_with_index do |(name, props), i|
     config.vm.define "#{name}-local".to_sym do |node|
-      node.vm.network :private_network, ip: props[:ip]
+      node.vm.network "private_network", ip: props[:ip]
+      node.vm.network "forwarded_port", guest: 9650, host: 9661 + i
       node.vm.hostname = "#{name}.local" 
       node.vm.provider "virtualbox" do |n|
         n.name =  "#{name}.local"
