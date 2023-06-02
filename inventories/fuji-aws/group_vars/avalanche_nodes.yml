@@ -1,0 +1,5 @@
+# Copyright (C) 2023, E36 Knots
+# See the file LICENSE for licensing terms.
+---
+avalanchego_version: 1.10.2
+avalanchego_network_id: fuji

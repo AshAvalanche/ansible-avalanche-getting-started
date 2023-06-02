@@ -1,0 +1,7 @@
+# Copyright (C) 2023, E36 Knots
+# See the file LICENSE for licensing terms.
+
+aws-fuji-node ansible_host=52.90.160.227 avalanchego_http_host=0.0.0.0 ansible_user=ubuntu ansible_ssh_private_key_file=files/ansible_key.pem
+
+[avalanche_nodes]
+aws-fuji-node
