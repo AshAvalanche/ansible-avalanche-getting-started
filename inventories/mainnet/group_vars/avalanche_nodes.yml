@@ -1,7 +1,0 @@
-# Copyright (C) 2022, Gauthier Leonard
-# See the file LICENSE for licensing terms.
----
-avalanchego_version: 1.9.0
-avalanchego_network_id: mainnet
-# AvalancheGo will generate new certs if needed
-avalanchego_use_existing_certs: no

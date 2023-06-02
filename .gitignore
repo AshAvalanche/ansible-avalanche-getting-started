@@ -1,6 +1,4 @@
 ansible_collections
 ansible_roles
 .vagrant
-inventories/fuji/hosts
-inventories/mainnet/hosts
 .venv
