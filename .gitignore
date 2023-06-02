@@ -2,3 +2,7 @@ ansible_collections
 ansible_roles
 .vagrant
 .venv
+.terraform.lock.hcl
+.terraform/
+terraform.tfstate*
+files/ansible_key.pem
