@@ -13,7 +13,7 @@ validator0[1:5]
 
 [avalanche_nodes:children]
 bootstrap_node
-subnet_control_node
+subnet_txs_host
 subnet_validators
 api_node
 
@@ -23,13 +23,11 @@ validator01
 [api_node]
 validator01
 
-[subnet_control_node]
+[subnet_txs_host]
 validator01
 
 [subnet_validators]
-validator01
-validator02
-validator03
+validator0[1:5]
 
 [faucet]
 frontend

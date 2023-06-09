@@ -15,11 +15,7 @@ avalanchego_vms_install: []
 avalanchego_track_subnets: []
 
 avalanchego_node_json:
-  # Adapt Snow consensus parameters to a 5 node network
+  # Adapt Snow consensus parameters to a 5-node network
   snow-sample-size: 3
   snow-quorum-size: 2
   snow-mixed-query-num-push-vdr: 2
-
-# Used for the configuration of Ash CLI
-avalanche_network_id: local
-avalanche_pchain_local_url: "{{ 'https' if avalanchego_https_enabled else 'http' }}://{{ avalanchego_http_host }}:{{ avalanchego_http_port }}/ext/bc/P"
