@@ -12,12 +12,12 @@ frontend ansible_host=192.168.60.19 ansible_user=vagrant ansible_ssh_private_key
 validator0[1:5]
 
 [avalanche_nodes:children]
-bootstrap_node
+bootstrap_nodes
 subnet_txs_host
 subnet_validators
 api_node
 
-[bootstrap_node]
+[bootstrap_nodes]
 validator01
 
 [api_node]
