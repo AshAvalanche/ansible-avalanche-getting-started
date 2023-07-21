@@ -4,6 +4,7 @@
 avalanchego_version: 1.9.6
 avalanchego_network_id: local
 
+avalanchego_http_host: 0.0.0.0
 avalanchego_https_enabled: false
 avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 
