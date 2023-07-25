@@ -6,18 +6,18 @@ prometheus_scrape_configs:
     metrics_path: /ext/metrics
     static_configs:
       - targets:
-          - 192.168.60.11:9650
-          - 192.168.60.12:9650
-          - 192.168.60.13:9650
-          - 192.168.60.14:9650
-          - 192.168.60.15:9650
+          - "{{ hostvars['validator01'].ansible_host }}:9650"
+          - "{{ hostvars['validator02'].ansible_host }}:9650"
+          - "{{ hostvars['validator03'].ansible_host }}:9650"
+          - "{{ hostvars['validator04'].ansible_host }}:9650"
+          - "{{ hostvars['validator05'].ansible_host }}:9650"
   - job_name: avalanchego-machine
     static_configs:
       - targets:
-          - 192.168.60.11:9100
-          - 192.168.60.12:9100
-          - 192.168.60.13:9100
-          - 192.168.60.14:9100
-          - 192.168.60.15:9100
+          - "{{ hostvars['validator01'].ansible_host }}:9100"
+          - "{{ hostvars['validator02'].ansible_host }}:9100"
+          - "{{ hostvars['validator03'].ansible_host }}:9100"
+          - "{{ hostvars['validator04'].ansible_host }}:9100"
+          - "{{ hostvars['validator05'].ansible_host }}:9100"
         labels:
           alias: machine
