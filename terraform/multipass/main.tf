@@ -64,3 +64,23 @@ resource "local_file" "ansible_hosts" {
   )
   filename = "hosts.ini"
 }
+
+# Ash CLI configuration templating
+resource "local_file" "ash_cli_config" {
+  content = templatefile(
+    "local-test-network.tftpl",
+    {
+      validators = values(data.multipass_instance.validators_info)
+    }
+  )
+  filename = "local-test-network.yml"
+}
+
+# Outputs
+output "validators_ips" {
+  value = values(data.multipass_instance.validators_info).*.ipv4
+}
+
+output "frontend_ip" {
+  value = data.multipass_instance.frontend_info.ipv4
+}
