@@ -7,9 +7,9 @@ avalanche_faucet_evmchains:
   - ID: ASH
     NAME: AshLocalEVM
     TOKEN: ASH
-    RPC: http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockchain_id }}/rpc
+    RPC: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockchain_id }}/rpc"
     CHAINID: 66666
-    EXPLORER: http://{{ hostvars['frontend'].ansible_host }}:4000
+    EXPLORER: "http://{{ hostvars['frontend'].ansible_host }}:4000"
     IMAGE: https://ash.center/img/ash-logo.svg
     MAX_PRIORITY_FEE: 2000000000
     MAX_FEE: 100000000000
