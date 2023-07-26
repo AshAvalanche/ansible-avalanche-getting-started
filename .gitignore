@@ -6,3 +6,5 @@ ansible_roles
 .terraform/
 terraform.tfstate*
 files/ansible_key.pem
+hosts.ini
+local-test-network.yml

@@ -1,0 +1,37 @@
+%{ for validator in validators ~}
+${ validator.name } ansible_host=${ validator.ipv4 } ansible_user=ansible ansible_ssh_private_key_file=./files/multipass/id_rsa
+%{ endfor ~}
+frontend ansible_host=${ frontend.ipv4 } ansible_user=ansible ansible_ssh_private_key_file=./files/multipass/id_rsa
+
+[avalanche_nodes]
+validator0[1:5]
+
+[avalanche_nodes:children]
+bootstrap_nodes
+subnet_txs_host
+subnet_validators
+api_node
+
+[bootstrap_nodes]
+validator01
+
+[api_node]
+validator01
+
+[subnet_txs_host]
+validator01
+
+[subnet_validators]
+validator0[1:5]
+
+[faucet]
+frontend
+
+[blockscout]
+frontend
+
+[prometheus]
+frontend
+
+[grafana]
+frontend

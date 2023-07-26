@@ -1,9 +1,10 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.9.6
+avalanchego_version: 1.10.1
 avalanchego_network_id: local
 
+avalanchego_http_host: 0.0.0.0
 avalanchego_https_enabled: false
 avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 
@@ -19,3 +20,4 @@ avalanchego_node_json:
   snow-sample-size: 3
   snow-quorum-size: 2
   snow-mixed-query-num-push-vdr: 2
+  http-allowed-hosts: "*"

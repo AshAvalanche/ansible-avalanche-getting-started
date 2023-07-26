@@ -7,7 +7,7 @@ grafana_security:
 grafana_datasources:
   - name: Prometheus
     type: prometheus
-    url: http://192.168.60.19:9090
+    url: "http://{{ hostvars['frontend'].ansible_host }}:9090"
 grafana_dashboards_dir: "{{ playbook_dir }}/../files/dashboards"
 grafana_data_dir: "/var/lib/grafana"
-grafana_subnets_dashboard_variables: {}
+grafana_subnets_dashboard_variables: []
