@@ -16,8 +16,6 @@ avalanchego_vms_install: []
 avalanchego_track_subnets: []
 
 avalanchego_node_json:
-  # Adapt Snow consensus parameters to a 5-node network
-  snow-sample-size: 3
-  snow-quorum-size: 2
-  snow-mixed-query-num-push-vdr: 2
   http-allowed-hosts: "*"
+
+validator_stake_or_weight: 100
