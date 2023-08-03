@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2022-2023, E36 Knots
 ---
-blockchain_id: 2dEmExGjJT6MouJRr1PqV4PSQEbScDAjKuPtT6pgqYR5xdUuac
+faucet_blockchain_id: 2dEmExGjJT6MouJRr1PqV4PSQEbScDAjKuPtT6pgqYR5xdUuac
 
 avalanche_faucet_evmchains:
   - ID: ASH
     NAME: AshLocalEVM
     TOKEN: ASH
-    RPC: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockchain_id }}/rpc"
+    RPC: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ faucet_blockchain_id }}/rpc"
     CHAINID: 66666
     EXPLORER: "http://{{ hostvars['frontend'].ansible_host }}:4000"
     IMAGE: https://ash.center/img/ash-logo.svg

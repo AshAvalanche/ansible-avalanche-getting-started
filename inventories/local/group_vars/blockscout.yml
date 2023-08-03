@@ -1,6 +1,6 @@
 ---
-blockchain_id: 2dEmExGjJT6MouJRr1PqV4PSQEbScDAjKuPtT6pgqYR5xdUuac
+blockscout_blockchain_id: 2dEmExGjJT6MouJRr1PqV4PSQEbScDAjKuPtT6pgqYR5xdUuac
 
-blockscout_rpc: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockchain_id }}/rpc"
+blockscout_rpc: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockscout_blockchain_id }}/rpc"
 blockscout_env_vars:
   CHAIN_ID: 66666
