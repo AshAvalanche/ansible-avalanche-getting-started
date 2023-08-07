@@ -1,7 +1,7 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.10.1
+avalanchego_version: 1.10.7
 avalanchego_network_id: local
 
 avalanchego_http_host: 0.0.0.0
@@ -11,7 +11,8 @@ avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 avalanchego_staking_use_local_certs: true
 avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
 
-avalanchego_vms_install: []
+avalanchego_vms_install:
+  - ash-subnet-evm=0.666.0
 
 avalanchego_track_subnets: []
 
@@ -19,3 +20,16 @@ avalanchego_node_json:
   http-allowed-hosts: "*"
 
 validator_stake_or_weight: 100
+
+avalanchego_vms_list:
+  ash-subnet-evm:
+    download_url: https://github.com/AshAvalanche/subnet-evm/releases/download
+    id: jvFWMths2qLjsZgbyEKx82PkQv2YWR4rotjQfxV55vLLogjNA
+    # Used in Ash CLI
+    ash_vm_type: SubnetEVM
+    aliases:
+      - ash-subnet-evm
+    versions_comp:
+      0.666.0:
+        ge: 1.10.5
+        le: 1.10.7
