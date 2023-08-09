@@ -21,6 +21,7 @@ avalanchego_node_json:
 
 validator_stake_or_weight: 100
 
+# Add ash-subnet-evm VM to the list of known VMs
 avalanchego_vms_list:
   ash-subnet-evm:
     download_url: https://github.com/AshAvalanche/subnet-evm/releases/download
@@ -33,3 +34,5 @@ avalanchego_vms_list:
       0.666.0:
         ge: 1.10.5
         le: 1.10.7
+
+validator_end_time_command_default: 'date -d "1 day 2 minutes" --rfc-3339=seconds | tr " " T'
