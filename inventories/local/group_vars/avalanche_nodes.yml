@@ -36,3 +36,5 @@ avalanchego_vms_list:
         le: 1.10.8
 
 ash_cli_version: 0.2.2
+
+avalanchego_chains_configs: { "uMBaf3Nb62N2xajmxo9ZL5VcSw87tuB3snQEJb8nsyxyLq68f": { warp-api-enabled: true } }
