@@ -3,8 +3,8 @@
 ---
 # Subnet configuration
 subnet_blockchains_list:
-  - name: AshLocalEVM
-    vm: subnet-evm
+  - name: HolyTerra
+    vm: ash-subnet-evm
     genesis_data:
       config:
         chainId: 66666
@@ -19,22 +19,32 @@ subnet_blockchains_list:
         istanbulBlock: 0
         muirGlacierBlock: 0
         subnetEVMTimestamp: 0
+        # Fee config from https://github.com/ava-labs/subnet-evm/blob/master/tests/precompile/genesis/warp.json
         feeConfig:
-          gasLimit: 8000000
-          minBaseFee: 25000000000
-          targetGas: 15000000
-          baseFeeChangeDenominator: 36
+          gasLimit: 20000000
+          minBaseFee: 1000000000
+          targetGas: 100000000
+          baseFeeChangeDenominator: 48
           minBlockGasCost: 0
-          maxBlockGasCost: 1000000
+          maxBlockGasCost: 10000000
           targetBlockRate: 2
-          blockGasCostStep: 200000
+          blockGasCostStep: 500000
+        # Enable ContractDeployerAllowList precompile
+        contractDeployerAllowListConfig:
+          adminAddresses:
+            - "0x590be912819452c4218028436570cC80C98164B0"
+          enabledAddresses: null
+          blockTimestamp: 0
+        # Enable Warp precompile
+        warpConfig:
+          blockTimestamp: 0
       alloc:
-        8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC:
-          balance: "0x295BE96E64066972000000"
+        590be912819452c4218028436570cC80C98164B0:
+          balance: "0x52B7D2DCC80CD2E4000000"
       nonce: "0x0"
       timestamp: "0x0"
       extraData: "0x00"
-      gasLimit: "0x7A1200"
+      gasLimit: "0x1312D00"
       difficulty: "0x0"
       mixHash: "0x0000000000000000000000000000000000000000000000000000000000000000"
       coinbase: "0x0000000000000000000000000000000000000000"
