@@ -1,7 +1,7 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.10.8
+avalanchego_version: 1.10.9
 avalanchego_network_id: local
 
 avalanchego_http_host: 0.0.0.0
