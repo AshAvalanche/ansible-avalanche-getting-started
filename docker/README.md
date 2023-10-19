@@ -61,21 +61,26 @@ ash/avalanche-node                    1.10.9-subnet-evm-0.5.6  4fe58ef61de4  Abo
 
 ## Start the local Avalanche test network with Docker Compose
 
-To start the local Avalanche test network with Docker Compose, simply run `docker-compose up -d`.
+To start the local Avalanche test network with Docker Compose, simply run `docker compose up -d`.
 
 ## Creating a local Subnet
 
 To create a local Subnet, you can use the same playbook as for the Multipass-based local test network:
 
 ```bash
+# Note: you may have to wait a few seconds for the network to be bootstrapped and ready
+
 ansible-playbook ash.avalanche.create_subnet -i inventories/local
 ```
 
-To track the newly created Subnet, restart the Docker containers after exporting the `SUBNET_ID` (prompted at the end of the playbook):
+To track the newly created Subnet, restart the Docker containers after adding the Subnet ID to the `track-subnets` configuration parameter of the Avalanche nodes:
 
 ```bash
-export SUBNET_ID=$NEW_SUBNET_ID
-docker-compose restart
+for v in {1..5}; do
+  sed -i 's/"track-subnets": ".*"/"track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL"/' "data/conf/validator0$v/conf/node.json";
+done
+
+docker compose restart
 ```
 
 ## Using the Ash CLI

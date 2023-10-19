@@ -44,10 +44,7 @@ source "docker" "avalanche_node" {
   pull   = false
   commit = true
   changes = [
-    "ENV BOOTSTRAP_ID ''",
-    "ENV BOOTSTRAP_IP ''",
-    "ENV SUBNET_ID ''",
-    "ENTRYPOINT /opt/avalanche/avalanchego/current/avalanchego --plugin-dir=/opt/avalanche/avalanchego/current/plugins --config-file=/etc/avalanche/avalanchego/conf/node.json --bootstrap-ids=\"$BOOTSTRAP_ID\" --bootstrap-ips=\"$BOOTSTRAP_IP\" --track-subnets=\"$SUBNET_ID\""
+    "ENTRYPOINT /opt/avalanche/avalanchego/current/avalanchego --plugin-dir=/opt/avalanche/avalanchego/current/plugins --config-file=/etc/avalanche/avalanchego/mounted-conf/node.json"
   ]
 }
 
