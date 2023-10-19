@@ -57,3 +57,7 @@ The complete documentation related to this project starts by the [Local Test Net
    ```bash
    ansible-playbook ash.avalanche.bootstrap_local_network -i inventories/local
    ```
+
+## Docker Compose
+
+It is possible to build Docker images for the Avalanche nodes using [Packer](https://developer.hashicorp.com/packer) and run them using Docker Compose. See [docker/README.md](./docker/README.md) for more information.
