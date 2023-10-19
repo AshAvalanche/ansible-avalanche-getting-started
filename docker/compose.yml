@@ -15,7 +15,7 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.11
     environment:
-      SUBNET_ID: "${SUBNET_ID:-''}"
+      SUBNET_ID: "${SUBNET_ID:-}"
   avalanche-local-validator02:
     image: "ash/avalanche-node-local-validator02:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator02
@@ -28,7 +28,7 @@ services:
     environment:
       BOOTSTRAP_ID: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
       BOOTSTRAP_IP: 177.17.0.11:9651
-      SUBNET_ID: "${SUBNET_ID:-''}"
+      SUBNET_ID: "${SUBNET_ID:-}"
   avalanche-local-validator03:
     image: "ash/avalanche-node-local-validator03:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator03
@@ -41,7 +41,7 @@ services:
     environment:
       BOOTSTRAP_ID: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
       BOOTSTRAP_IP: 177.17.0.11:9651
-      SUBNET_ID: "${SUBNET_ID:-''}"
+      SUBNET_ID: "${SUBNET_ID:-}"
   avalanche-local-validator04:
     image: "ash/avalanche-node-local-validator04:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator04
@@ -54,7 +54,7 @@ services:
     environment:
       BOOTSTRAP_ID: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
       BOOTSTRAP_IP: 177.17.0.11:9651
-      SUBNET_ID: "${SUBNET_ID:-''}"
+      SUBNET_ID: "${SUBNET_ID:-}"
   avalanche-local-validator05:
     image: "ash/avalanche-node-local-validator05:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator05
@@ -67,4 +67,4 @@ services:
     environment:
       BOOTSTRAP_ID: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
       BOOTSTRAP_IP: 177.17.0.11:9651
-      SUBNET_ID: "${SUBNET_ID:-''}"
+      SUBNET_ID: "${SUBNET_ID:-}"

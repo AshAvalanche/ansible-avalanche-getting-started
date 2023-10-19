@@ -16,6 +16,9 @@ AVALANCHEGO_VERSION=${AVALANCHEGO_VERSION:-1.10.9}
 AVALANCHEGO_VM_NAME=${AVALANCHEGO_VM_NAME:-subnet-evm}
 AVALANCHEGO_VM_VERSION=${AVALANCHEGO_VM_VERSION:-0.5.6}
 
+# Init Packer
+packer init avalanche-node-docker.pkr.hcl
+
 # Build the Avalanche node base image
 packer build -var "avalanchego_version=${AVALANCHEGO_VERSION}" \
 	-var "avalanchego_vm_name=${AVALANCHEGO_VM_NAME}" \
