@@ -12,17 +12,17 @@ For some use cases, it can be useful to pre-build Docker images and run the loca
 
   ```yaml
   avalanchego_vms_list:
-    ash-subnet-evm:
-      download_url: https://github.com/AshAvalanche/subnet-evm/releases/download
-      id: jvFWMths2qLjsZgbyEKx82PkQv2YWR4rotjQfxV55vLLogjNA
+    tokenvm:
+      download_url: https://github.com/AshAvalanche/hypersdk/releases/download
+      id: tHBYNu8ikqo4MWMHehC9iKB9mR5tB3DWzbkYmTfe9buWQ5GZ8
       # Used in Ash CLI
       ash_vm_type: Custom
       aliases:
-        - ash-subnet-evm
+        - tokenvm
       versions_comp:
-        0.666.0:
-          ge: 1.10.5
-          le: 1.10.8
+        0.0.15:
+          ge: 1.10.9
+          le: 1.10.12
   ```
 
 ## Build the Docker images
@@ -38,10 +38,10 @@ Out of simplicity, the `build.sh` script is provided:
 cd docker
 
 # Set the AvalancheGo version
-export AVALANCHEGO_VERSION=1.10.9
+export AVALANCHEGO_VERSION=1.10.12
 # Set the Avalanche VM to install with its version
-export AVALANCHEGO_VM_NAME=subnet-evm
-export AVALANCHEGO_VM_VERSION=0.5.6
+export AVALANCHEGO_VM_NAME=tokenvm
+export AVALANCHEGO_VM_VERSION=0.0.15
 
 ./build.sh
 ```
@@ -51,12 +51,12 @@ The build will publish the following Docker images to the local Docker registry:
 ```bash
 $ docker image ls
 REPOSITORY                            TAG                      IMAGE ID      CREATED            SIZE
-ash/avalanche-node-local-validator05  1.10.9-subnet-evm-0.5.6  810187bfeb08  About an hour ago  368MB
-ash/avalanche-node-local-validator04  1.10.9-subnet-evm-0.5.6  fe05a65bb297  About an hour ago  368MB
-ash/avalanche-node-local-validator03  1.10.9-subnet-evm-0.5.6  52f16e544a21  About an hour ago  368MB
-ash/avalanche-node-local-validator02  1.10.9-subnet-evm-0.5.6  ac9e3f3b88af  About an hour ago  368MB
-ash/avalanche-node-local-validator01  1.10.9-subnet-evm-0.5.6  8c101af0e369  About an hour ago  368MB
-ash/avalanche-node                    1.10.9-subnet-evm-0.5.6  4fe58ef61de4  About an hour ago  368MB
+ash/avalanche-node-local-validator05  1.10.12-tokenvm-0.0.15  810187bfeb08  About an hour ago  368MB
+ash/avalanche-node-local-validator04  1.10.12-tokenvm-0.0.15  fe05a65bb297  About an hour ago  368MB
+ash/avalanche-node-local-validator03  1.10.12-tokenvm-0.0.15  52f16e544a21  About an hour ago  368MB
+ash/avalanche-node-local-validator02  1.10.12-tokenvm-0.0.15  ac9e3f3b88af  About an hour ago  368MB
+ash/avalanche-node-local-validator01  1.10.12-tokenvm-0.0.15  8c101af0e369  About an hour ago  368MB
+ash/avalanche-node                    1.10.12-tokenvm-0.0.15  4fe58ef61de4  About an hour ago  368MB
 ```
 
 ## Start the local Avalanche test network with Docker Compose
@@ -73,13 +73,27 @@ To create a local Subnet, you can use the same playbook as for the Multipass-bas
 ansible-playbook ash.avalanche.create_subnet -i inventories/local
 ```
 
-To track the newly created Subnet, restart the Docker containers after adding the Subnet ID to the `track-subnets` configuration parameter of the Avalanche nodes:
+To track the newly created Subnet, restart the Docker containers after
 
-```bash
-for v in {1..5}; do
-  sed -i 's/"track-subnets": ".*"/"track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL"/' "data/conf/validator0$v/conf/node.json";
-done
+1. Adding the Subnet ID to the `track-subnets` configuration parameter of the Avalanche nodes:
 
+   ```bash
+   sed -i 's/"track-subnets": ".*"/"track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL"/' "data/conf/bootstrap/conf/node.json";
+   sed -i 's/"track-subnets": ".*"/"track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL"/' "data/conf/node/conf/node.json";
+   ```
+
+2. Renaming the chains config directory if needed (has to be named after the chain ID):
+   ```bash
+   mv data/conf/bootstrap/conf/chains/2ArqB8j5FWQY9ZBtA3QFJgiH9EmXzbqGup5kuyPQZVZcL913Au data/conf/bootstrap/conf/chains/${CHAIN_ID}
+   mv data/conf/node/conf/chains/2ArqB8j5FWQY9ZBtA3QFJgiH9EmXzbqGup5kuyPQZVZcL913Au data/conf/node/conf/chains/${CHAIN_ID}
+   ```
+3. Renaming the subnet config file if needed (has to be named after the Subnet ID):
+   ```bash
+   mv data/conf/bootstrap/conf/subnets/29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL.json data/conf/bootstrap/conf/subnets/${SUBNET_ID}.json
+   mv data/conf/node/conf/subnets/29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL.json data/conf/node/conf/subnets/${SUBNET_ID}.json
+   ```
+
+```
 docker compose restart
 ```
 

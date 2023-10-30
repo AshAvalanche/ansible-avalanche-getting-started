@@ -8,3 +8,7 @@ terraform.tfstate*
 files/ansible_key.pem
 hosts.ini
 local-test-network.yml
+
+# Tokenvm
+.token-cli
+demo.pk
