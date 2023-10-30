@@ -15,7 +15,7 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.11
     volumes:
-      - ./data/conf/validator01/conf:/etc/avalanche/avalanchego/mounted-conf
+      - ./data/conf/bootstrap/conf:/etc/avalanche/avalanchego/mounted-conf
   avalanche-local-validator02:
     image: "ash/avalanche-node-local-validator02:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator02
@@ -26,7 +26,7 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.12
     volumes:
-      - ./data/conf/validator02/conf:/etc/avalanche/avalanchego/mounted-conf
+      - ./data/conf/node/conf:/etc/avalanche/avalanchego/mounted-conf
   avalanche-local-validator03:
     image: "ash/avalanche-node-local-validator03:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator03
@@ -37,7 +37,7 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.13
     volumes:
-      - ./data/conf/validator03/conf:/etc/avalanche/avalanchego/mounted-conf
+      - ./data/conf/node/conf:/etc/avalanche/avalanchego/mounted-conf
   avalanche-local-validator04:
     image: "ash/avalanche-node-local-validator04:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator04
@@ -48,7 +48,7 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.14
     volumes:
-      - ./data/conf/validator04/conf:/etc/avalanche/avalanchego/mounted-conf
+      - ./data/conf/node/conf:/etc/avalanche/avalanchego/mounted-conf
   avalanche-local-validator05:
     image: "ash/avalanche-node-local-validator05:${AVALANCHEGO_VERSION:-1.10.9}-${AVALANCHEGO_VM_NAME:-subnet-evm}-${AVALANCHEGO_VM_VERSION:-0.5.6}"
     container_name: ash-avalanche-local-validator05
@@ -59,4 +59,4 @@ services:
       avalanchelocal:
         ipv4_address: 177.17.0.15
     volumes:
-      - ./data/conf/validator05/conf:/etc/avalanche/avalanchego/mounted-conf
+      - ./data/conf/node/conf:/etc/avalanche/avalanchego/mounted-conf
