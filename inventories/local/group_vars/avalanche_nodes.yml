@@ -11,7 +11,7 @@ avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 avalanchego_staking_use_local_certs: true
 avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
 
-avalanchego_vms_install: []
+avalanchego_vms_install: {}
 
 avalanchego_track_subnets: []
 
