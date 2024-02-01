@@ -15,9 +15,8 @@
   "snow-quorum-size": 15,
   "snow-sample-size": 20,
   "staking-port": 9651,
-  "staking-tls-cert-file": "/etc/avalanche/avalanchego/staking/node.crt",
-  "staking-tls-key-file": "/etc/avalanche/avalanchego/staking/node.key",
+  "staking-tls-cert-file": "/etc/avalanche/avalanchego/staking/staker.crt",
+  "staking-tls-key-file": "/etc/avalanche/avalanchego/staking/staker.key",
   "subnet-config-dir": "/etc/avalanche/avalanchego/mounted-conf/subnets",
-  "track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL",
-  "vm-aliases-file": "/etc/avalanche/avalanchego/conf/vms/aliases.json"
+  "track-subnets": "29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL"
 }

@@ -19,6 +19,7 @@ avalanchego_vms_list:
     ash_vm_type: Custom
     aliases:
       - tokenvm
+    binary_filename: tokenvm
     versions_comp:
       0.0.15:
         ge: 1.10.9

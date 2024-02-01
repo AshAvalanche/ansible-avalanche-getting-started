@@ -71,7 +71,7 @@ build {
       "--extra-vars",
       "{avalanchego_version: ${var.avalanchego_version}}",
       "--extra-vars",
-      "{avalanchego_vms_install: ['${var.avalanchego_vm_name}=${var.avalanchego_vm_version}']}"
+      "{avalanchego_vms_install: { \"${var.avalanchego_vm_name}\": \"${var.avalanchego_vm_version}\" } }"
     ]
   }
 
