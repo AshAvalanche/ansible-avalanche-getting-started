@@ -8,8 +8,8 @@ avalancheNetworks:
             name: P-Chain
             vmID: 11111111111111111111111111111111LpoYY
             vmType: PlatformVM
-            rpcUrl: http://${validators[0].ipv4}:9650/ext/bc/P
+            rpcUrl: http://127.0.0.1/ext/bc/P
           - name: X-Chain
             vmID: jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
             vmType: AvalancheVM
-            rpcUrl: http://${validators[0].ipv4}:9650/ext/bc/X
+            rpcUrl: http://127.0.0.1/ext/bc/X
