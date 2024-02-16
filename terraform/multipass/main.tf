@@ -78,10 +78,10 @@ output "frontend_ip" {
   value = data.multipass_instance.frontend_info.ipv4
 }
 
-# docker
+# Docker
 provider "docker" {}
 
-# writing configuration using template file
+# NGINX configuration templating
 resource "local_file" "nginx_conf" {
   content  = templatefile(
     "nginx.tftpl",
@@ -92,13 +92,13 @@ resource "local_file" "nginx_conf" {
   filename = abspath("nginx.conf")
 }
 
-# docker image
+# NGINX Docker image
 resource "docker_image" "nginx" {
   name         = "nginx:1.25.3"
   keep_locally = true
 }
 
-# docker container
+# NGINX Docker container
 resource "docker_container" "nginx" {
   image = docker_image.nginx.image_id
   name  = "avax_nginx"
