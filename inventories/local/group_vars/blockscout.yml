@@ -1,6 +1,9 @@
 ---
-blockscout_blockchain_id: 2dEmExGjJT6MouJRr1PqV4PSQEbScDAjKuPtT6pgqYR5xdUuac
+blockscout_blockchain_id: RfX8YRUHePxFENBZFwaNt1tP6CR6RQ4hJJ5AqYv49LRoSKniK
 
-blockscout_rpc: "http://{{ hostvars['validator01'].ansible_host }}:9650/ext/bc/{{ blockscout_blockchain_id }}/rpc"
-blockscout_env_vars:
+blockscout_rpc: http://{{ hostvars['validator01'].ansible_host | regex_search('^((?:\d{1,3}\.){2}\d{1,3})') }}.1/ext/bc/{{ blockscout_blockchain_id }}/rpc
+
+blockscout_ip_frontend: "{{ hostvars['frontend'].ansible_host }}"
+
+blockscout_backend_env_vars:
   CHAIN_ID: 66666
