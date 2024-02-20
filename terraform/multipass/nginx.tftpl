@@ -1,0 +1,19 @@
+worker_processes 1;# Core count
+events {
+    worker_connections  1024;# Connections per sec per core
+}
+
+http {
+    upstream avax {
+        %{ for ip in validators[*].ipv4 ~}
+        server ${ip}:9650;
+        %{ endfor ~}
+    }
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://avax;
+        }
+    }
+}

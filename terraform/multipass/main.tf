@@ -5,6 +5,10 @@ terraform {
       source  = "larstobi/multipass"
       version = "1.4.2"
     }
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "3.0.2"
+    }
   }
 }
 
@@ -65,17 +69,6 @@ resource "local_file" "ansible_hosts" {
   filename = "hosts.ini"
 }
 
-# Ash CLI configuration templating
-resource "local_file" "ash_cli_config" {
-  content = templatefile(
-    "local-test-network.tftpl",
-    {
-      validators = values(data.multipass_instance.validators_info)
-    }
-  )
-  filename = "local-test-network.yml"
-}
-
 # Outputs
 output "validators_ips" {
   value = values(data.multipass_instance.validators_info).*.ipv4
@@ -83,4 +76,39 @@ output "validators_ips" {
 
 output "frontend_ip" {
   value = data.multipass_instance.frontend_info.ipv4
+}
+
+# Docker
+provider "docker" {}
+
+# NGINX configuration templating
+resource "local_file" "nginx_conf" {
+  content  = templatefile(
+    "nginx.tftpl",
+    {
+      validators = values(data.multipass_instance.validators_info)
+    }
+  )
+  filename = abspath("nginx.conf")
+}
+
+# NGINX Docker image
+resource "docker_image" "nginx" {
+  name         = "nginx:1.25.3"
+  keep_locally = true
+}
+
+# NGINX Docker container
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.image_id
+  name  = "avax_nginx"
+  ports {
+    internal = 80
+    external = 80
+  }
+  mounts {
+    target = "/etc/nginx/nginx.conf"
+    type   = "bind"
+    source = local_file.nginx_conf.filename
+  }
 }
