@@ -1,7 +1,7 @@
 # Copyright (C) 2022, Gauthier Leonard
 # See the file LICENSE for licensing terms.
 ---
-avalanchego_version: 1.10.9
+avalanchego_version: 1.10.10
 avalanchego_network_id: local
 
 avalanchego_http_host: 0.0.0.0
@@ -11,11 +11,28 @@ avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 avalanchego_staking_use_local_certs: true
 avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
 
-avalanchego_vms_install: {}
+avalanchego_vms_install:
+  tokenvm: 0.0.666
 
-avalanchego_track_subnets: []
+avalanchego_track_subnets:
+  []
+  # - 29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL
 
 avalanchego_node_json:
   http-allowed-hosts: "*"
 
 validator_stake_or_weight: 100
+
+avalanchego_vms_list:
+  tokenvm:
+    # download_url and path are mutually exclusive
+    download_url: https://github.com/AshAvalanche/hypersdk/releases/download
+    # path: "{{ inventory_dir }}/../../files" # tokenvm_0.0.666_linux_amd64.tar.gz
+    id: tHBYNu8ikqo4MWMHehC9iKB9mR5tB3DWzbkYmTfe9buWQ5GZ8
+    # Used in Ash CLI
+    ash_vm_type: Custom
+    binary_filename: tokenvm
+    versions_comp:
+      0.0.666:
+        ge: 1.10.10
+        le: 1.10.12

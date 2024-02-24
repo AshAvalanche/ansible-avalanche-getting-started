@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) 2022-2024, E36 Knots
+---
+- name: Install Docker
+  hosts: frontend
+  become: true
+  roles:
+    - role: geerlingguy.docker
+
+- name: eth-l1 container
+  hosts: frontend
+  become: true
+  tasks:
+    - name: Upload files/eth-l1 dir
+      copy:
+        src: "{{ playbook_dir }}/../files/eth-l1"
+        dest: /opt
+        mode: 0755
+        owner: root
+        group: root
+
+    - name: Install pip3
+      package:
+        name: python3-pip
+        state: present
+
+    - name: Install docker and docker-compose pip packages
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - docker
+        - docker-compose
+
+    - name: Create eth-l1 container
+      community.docker.docker_compose_v2:
+        project_src: /opt/eth-l1
+        state: present
