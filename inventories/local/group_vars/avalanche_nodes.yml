@@ -10,6 +10,8 @@ avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
 
 avalanchego_staking_use_local_certs: true
 avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
+avalanchego_staking_use_local_bls_keys: true
+avalanchego_staking_local_bls_keys_dir: "{{ inventory_dir }}/../../files/staking"
 
 avalanchego_vms_install: {}
 
