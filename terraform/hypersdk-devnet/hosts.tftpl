@@ -1,0 +1,24 @@
+%{ for index, public_ip in public_ips ~}
+validator0${ index + 1 } ansible_host=${ public_ip } ansible_user=ubuntu ansible_ssh_private_key_file=./files/ansible_key.pem
+%{ endfor ~}
+
+[avalanche_nodes]
+validator0[1:${length(public_ips)}]
+
+[avalanche_nodes:children]
+bootstrap_nodes
+subnet_txs_host
+subnet_validators
+api_node
+
+[bootstrap_nodes]
+validator01
+
+[api_node]
+validator01
+
+[subnet_txs_host]
+validator01
+
+[subnet_validators]
+validator0[1:${length(public_ips)}]

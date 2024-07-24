@@ -1,0 +1,60 @@
+# Copyright (C) 2022, Gauthier Leonard
+# See the file LICENSE for licensing terms.
+---
+# Subnet configuration
+subnet_blockchains_list:
+  - name: AshMorpheus
+    vm: morpheusvm
+    genesis_data:
+      stateBranchFactor: 16
+      minBlockGap: 100
+      minEmptyBlockGap: 750
+      minUnitPrice:
+        - 100
+        - 100
+        - 100
+        - 100
+        - 100
+      unitPriceChangeDenominator:
+        - 48
+        - 48
+        - 48
+        - 48
+        - 48
+      windowTargetUnits:
+        - 40000000
+        - 450000
+        - 450000
+        - 450000
+        - 450000
+      maxBlockUnits:
+        - 1800000
+        - 15000
+        - 15000
+        - 2500
+        - 15000
+      validityWindow: 60000
+      maxActionsPerTx: 16
+      maxOutputsPerAction: 1
+      baseUnits: 1
+      storageKeyReadUnits: 5
+      storageValueReadUnits: 2
+      storageKeyAllocateUnits: 20
+      storageValueAllocateUnits: 5
+      storageKeyWriteUnits: 10
+      storageValueWriteUnits: 3
+      customAllocation:
+        - address: morpheus1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdjk97rwu
+          balance: 10000000000000000000
+
+# Private key of the pre-funded account
+subnet_txs_private_key: PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN
+subnet_txs_key_encoding: cb58
+
+# Validators to be added to the Subnet
+subnet_validators_params:
+  - node_id: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+    start_time: "{{ subnet_validator_start_time }}"
+    end_time: "{{ subnet_validator_end_time }}"
+    stake_or_weight: 100
+    delegation_fee: 2

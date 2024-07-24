@@ -1,0 +1,57 @@
+# Copyright (C) 2022, Gauthier Leonard
+# See the file LICENSE for licensing terms.
+---
+avalanchego_version: 1.11.8
+avalanchego_network_id: local
+
+avalanchego_http_host: 0.0.0.0
+avalanchego_https_enabled: false
+avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
+
+avalanchego_staking_use_local_certs: true
+avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
+avalanchego_staking_use_local_bls_keys: true
+avalanchego_staking_local_bls_keys_dir: "{{ inventory_dir }}/../../files/staking"
+
+avalanchego_vms_install:
+  morpheusvm: 0.0.1
+
+avalanchego_track_subnets:
+  - 29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL
+
+avalanchego_node_json:
+  http-allowed-hosts: "*"
+
+validator_stake_or_weight: 100
+
+avalanchego_vms_list:
+  morpheusvm:
+    download_url: https://github.com/AshAvalanche/hypersdk/releases/download
+    id: pkEmJQuTUic3dxzg8EYnktwn4W7uCHofNcwiYo458vodAUbY7
+    ash_vm_type: Custom
+    binary_filename: morpheusvm
+    versions_comp:
+      0.0.1:
+        ge: 1.11.3
+        le: 1.11.8
+
+avalanchego_subnets_configs:
+  29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL:
+    proposerMinBlockDelay: 0
+    proposerNumHistoricalBlocks: 50000
+
+avalanchego_chains_configs:
+  26iZJxV79s2vvTJQM2NebfW7tDqyzCr2SfzgyVXtoURQh5VFoM:
+    mempoolSize: 10000000
+    mempoolSponsorSize: 10000000
+    mempoolExemptSponsors:
+      - morpheus1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdjk97rwu
+    authVerificationCores: 2
+    rootGenerationCores: 2
+    transactionExecutionCores: 2
+    verifyAuth: true
+    storeTransactions: false
+    streamingBacklogSize: 10000000
+    logLevel: INFO
+    continuousProfilerDir: "/tmp/hypersdk/morpheusvm-e2e-profiles/*"
+    stateSyncServerDelay: 0
