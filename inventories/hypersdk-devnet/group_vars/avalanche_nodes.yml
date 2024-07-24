@@ -16,8 +16,8 @@ avalanchego_staking_local_bls_keys_dir: "{{ inventory_dir }}/../../files/staking
 avalanchego_vms_install:
   morpheusvm: 0.0.1
 
-avalanchego_track_subnets:
-  - 29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL
+# avalanchego_track_subnets:
+#   - 29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL
 
 avalanchego_node_json:
   http-allowed-hosts: "*"
@@ -34,6 +34,8 @@ avalanchego_vms_list:
       0.0.1:
         ge: 1.11.3
         le: 1.11.8
+
+validator_end_time_command: 'date -d "3 days 2 minutes" --rfc-3339=seconds | tr " " T'
 
 avalanchego_subnets_configs:
   29uVeLPJB1eQJkzRemU8g8wZDw5uJRqpab5U2mX9euieVwiEbL:
