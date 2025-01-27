@@ -1,13 +1,14 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2022-2023, E36 Knots
 ---
-grafana_security:
-  admin_user: admin
-  admin_password: admin123
+grafana_ini:
+  security:
+    admin_user: admin
+    admin_password: admin123
 grafana_datasources:
   - name: Prometheus
     type: prometheus
     url: "http://{{ hostvars['frontend'].ansible_host }}:9090"
 grafana_dashboards_dir: "{{ playbook_dir }}/../files/dashboards"
-grafana_data_dir: "/var/lib/grafana"
+# grafana_data_dir: "/var/lib/grafana"
 grafana_subnets_dashboard_variables: []
