@@ -1,0 +1,9 @@
+
+erpc_blockchain_id: C
+
+erpc_endpoint_list:
+  - http://validator01:9650
+  - http://validator02:9650
+  - http://validator03:9650
+  - http://validator04:9650
+  - http://validator05:9650
