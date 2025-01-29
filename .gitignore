@@ -8,3 +8,4 @@ terraform.tfstate*
 files/ansible_key.pem
 hosts.ini
 terraform/multipass/nginx.conf
+*.lz4
