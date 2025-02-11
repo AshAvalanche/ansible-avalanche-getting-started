@@ -1,16 +1,8 @@
-
-erpc_endpoint_list:
-  - http://validator01:9650
-  - http://validator02:9650
-  - http://validator03:9650
-  - http://validator04:9650
-  - http://validator05:9650
-
 # The first endpoint in the list is the primary endpoint (available without routes). Others are available through routes eg. /C/evm/66666
 erpc_chaines:
   - name: Ash-network
     evm_id: 66666
-    chain_id: qjKDeidURNTdq5fC5vnKYoToenUq43W9ESk3LUHLfgM5CqhCn
+    chain_id: 2KBNkjxv6thcpdhZTYBfKnc1od7tePuUEJwjzAyV7yrPfxuF1M
   - name: C
     evm_id: 43113
     chain_id: C
