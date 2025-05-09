@@ -22,7 +22,7 @@ The complete documentation related to this project starts by the [Local Test Net
 
    ```bash
    git clone https://github.com/AshAvalanche/ansible-avalanche-getting-started
-   cd ansible-avalanche-collection-getting-started
+   cd ansible-avalanche-getting-started
    ```
 
 2. Setup and activate Python venv:
