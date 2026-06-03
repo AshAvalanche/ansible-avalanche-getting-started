@@ -1,13 +1,18 @@
+variable "validators_count" {
+  type    = number
+  default = 5
+}
+
 # Provider: multipass
 terraform {
   required_providers {
     multipass = {
       source  = "larstobi/multipass"
-      version = "1.4.2"
+      version = "1.4.3"
     }
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "4.1.0"
     }
   }
 }
@@ -17,7 +22,7 @@ provider "multipass" {}
 # Multipass instances
 resource "multipass_instance" "validators" {
   for_each = {
-    for i in range(1, 6) : "validator0${i}" => i
+    for i in range(1, var.validators_count + 1) : "validator0${i}" => i
   }
 
   name           = each.key
@@ -34,7 +39,7 @@ data "multipass_instance" "validators_info" {
   ]
 
   for_each = {
-    for i in range(1, 6) : "validator0${i}" => i
+    for i in range(1, var.validators_count + 1) : "validator0${i}" => i
   }
 
   name = each.key

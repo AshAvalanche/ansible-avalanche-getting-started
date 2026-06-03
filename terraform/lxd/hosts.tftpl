@@ -1,0 +1,41 @@
+%{ for name, node in nodes ~}
+${name} ansible_host=${lxd_host_address} ansible_port=${node.ssh_port} ansible_user=ubuntu lxd_host_name=lxd-server avalanchego_http_port=${node.http_port} avalanchego_staking_port=${node.staking_port}
+%{ endfor ~}
+lxd-server ansible_host=${lxd_host_address} ansible_user=${lxd_ssh_user}
+
+[lxd_host]
+lxd-server
+
+[avalanche_nodes]
+
+[avalanche_nodes:children]
+lxd_nodes
+bootstrap_nodes
+subnet_txs_host
+subnet_validators
+api_node
+
+[lxd_nodes]
+%{ for name, node in nodes ~}
+${name}
+%{ endfor ~}
+
+[lxd_nodes:vars]
+ansible_user=ubuntu
+
+[bootstrap_nodes]
+%{ for name, node in nodes ~}%{ if node.index == 0 ~}${name}
+%{ endif ~}%{ endfor ~}
+
+[api_node]
+%{ for name, node in nodes ~}%{ if node.index == 0 ~}${name}
+%{ endif ~}%{ endfor ~}
+
+[subnet_txs_host]
+%{ for name, node in nodes ~}%{ if node.index == 0 ~}${name}
+%{ endif ~}%{ endfor ~}
+
+[subnet_validators]
+%{ for name, node in nodes ~}
+${name}
+%{ endfor ~}

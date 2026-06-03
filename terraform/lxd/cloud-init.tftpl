@@ -1,0 +1,12 @@
+#cloud-config
+users:
+  - name: ubuntu
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ${ssh_public_key}
+packages:
+  - openssh-server
+  - python3
+package_update: true

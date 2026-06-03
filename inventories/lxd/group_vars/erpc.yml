@@ -1,0 +1,10 @@
+erpc_include_c_chain: true
+erpc_https_backend_ca_file: "{{ inventory_dir }}/../../files/https/ca.crt"
+# Endpoint of the C Chain: <erpc-ip>:4000/43113
+erpc_chains:
+  - name: Ash-network
+    evm_id: 18504
+    chain_id: 2C11DC1y9uS4nvGTVutTGzjfAaectjUTLpvCMvZ68H9GQ5n7MJ
+  - name: C
+    evm_id: 43113
+    chain_id: C

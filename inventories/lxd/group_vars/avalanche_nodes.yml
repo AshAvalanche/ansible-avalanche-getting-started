@@ -1,0 +1,47 @@
+# Copyright (C) 2022, Gauthier Leonard
+# See the file LICENSE for licensing terms.
+---
+avalanchego_auto_restart: true
+
+avalanchego_version: 1.14.0
+avalanchego_network_id: fuji
+
+# avalanchego_http_host and avalanchego_public_ip are set per-group in
+# playbooks/group_vars/lxd_nodes.yml (collection-level) for lxd_nodes hosts,
+# and overridden in hosts.ini [lxd_nodes:vars] for Terraform-generated inventories.
+
+avalanchego_https_enabled: true
+avalanchego_https_local_certs_dir: "{{ inventory_dir }}/../../files/https"
+
+avalanchego_staking_use_local_certs: true
+avalanchego_staking_local_certs_dir: "{{ inventory_dir }}/../../files/staking"
+avalanchego_staking_use_local_bls_keys: true
+avalanchego_staking_local_bls_keys_dir: "{{ inventory_dir }}/../../files/staking"
+
+avalanchego_vms_install:
+  subnet-evm: 0.8.0
+
+avalanchego_node_json:
+  http-allowed-hosts: "*"
+  partial-sync-primary-network: true
+
+validator_stake_or_weight: 100
+
+avalanchego_chains_configs:
+  eth-apis:
+    - eth
+    - eth-filter
+    - net
+    - web3
+    - internal-eth
+    - internal-blockchain
+    - internal-transaction
+    - internal-debug
+    - internal-account
+    - debug
+    - debug-tracer
+  2XN8NE53w4RiAiS3p85mtm8aSH53No8HbnkEzTBLNDD43CbrG4:
+    pruning_enabled: false
+
+avalanchego_track_subnets:
+  - 2pDBC1aRrj5pqnZ3rivSt445TY8qVcLNKbJVs2u5q38pWvQXJu

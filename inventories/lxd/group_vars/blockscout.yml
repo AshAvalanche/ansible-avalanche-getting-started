@@ -1,0 +1,8 @@
+---
+
+blockscout_rpc: https://localhost:4000/18504
+
+blockscout_frontend_ip: "{{ hostvars['lxd-server'].ansible_host }}"
+
+blockscout_backend_env_vars:
+  CHAIN_ID: 18504
