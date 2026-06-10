@@ -4,7 +4,9 @@ ${ validator.name } ansible_host=${ validator.ipv4 } ansible_user=ansible ansibl
 frontend ansible_host=${ frontend.ipv4 } ansible_user=ansible ansible_ssh_private_key_file=./files/multipass/id_rsa
 
 [avalanche_nodes]
-validator0[1:5]
+%{ for validator in validators ~}
+${ validator.name }
+%{ endfor ~}
 
 [avalanche_nodes:children]
 bootstrap_nodes
@@ -13,16 +15,24 @@ subnet_validators
 api_node
 
 [bootstrap_nodes]
-validator01
+%{ if length(validators) > 0 ~}
+${ validators[0].name }
+%{ endif ~}
 
 [api_node]
-validator01
+%{ if length(validators) > 0 ~}
+${ validators[0].name }
+%{ endif ~}
 
 [subnet_txs_host]
-validator01
+%{ if length(validators) > 0 ~}
+${ validators[0].name }
+%{ endif ~}
 
 [subnet_validators]
-validator0[1:5]
+%{ for validator in validators ~}
+${ validator.name }
+%{ endfor ~}
 
 [faucet]
 frontend
