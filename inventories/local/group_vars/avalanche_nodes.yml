@@ -3,7 +3,7 @@
 ---
 avalanchego_auto_restart: true
 
-avalanchego_version: 1.14.0
+avalanchego_version: 1.14.2
 avalanchego_network_id: local
 
 avalanchego_http_host: 0.0.0.0
@@ -16,7 +16,7 @@ avalanchego_staking_use_local_bls_keys: true
 avalanchego_staking_local_bls_keys_dir: "{{ inventory_dir }}/../../files/staking"
 
 avalanchego_vms_install:
-  subnet-evm: 0.8.0
+  subnet-evm: 1.14.2
 
 avalanchego_track_subnets: []
 
