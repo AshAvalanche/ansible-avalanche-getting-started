@@ -1,9 +1,4 @@
-erpc_include_c_chain: true
-# Endpoint of the C Chain: <erpc-ip>:4000/43113
-erpc_chaines:
-  - name: Ash-network
-    evm_id: 66666
-    chain_id: 2KBNkjxv6thcpdhZTYBfKnc1od7tePuUEJwjzAyV7yrPfxuF1M
-  - name: C
-    evm_id: 43113
-    chain_id: C
+erpc_backend_validate_certs: false
+erpc_chains:
+  - RfX8YRUHePxFENBZFwaNt1tP6CR6RQ4hJJ5AqYv49LRoSKniK
+  - C
